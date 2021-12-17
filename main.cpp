@@ -1,6 +1,8 @@
 #include <iostream>
+#include "FizzBuzz.h"
 
-int main() {
-    std::cout << "Hello, World!" << std::endl;
-    return 0;
+int main(int argc, char * argv[]) {
+    FizzBuzz fizzBuzz;
+
+    return fizzBuzz.Go(argc, argv);
 }

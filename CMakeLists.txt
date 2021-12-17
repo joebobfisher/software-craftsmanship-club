@@ -1,6 +1,15 @@
 cmake_minimum_required(VERSION 3.21)
 project(fizzbuzz)
 
-set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD 11)
 
-add_executable(fizzbuzz main.cpp)
+include_directories(FizzBuzz)
+
+set(CLASS_FILES
+        FizzBuzz/FizzBuzz.cpp
+        FizzBuzz/FizzBuzz.h)
+add_executable(FizzBuzz_run ${CLASS_FILES} main.cpp)
+
+add_library(FizzBuzz_lib ${CLASS_FILES})
+
+add_subdirectory(google_tests)
