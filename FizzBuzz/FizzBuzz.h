@@ -1,9 +1,20 @@
 #ifndef FIZZBUZZ_FIZZBUZZ_H
 #define FIZZBUZZ_FIZZBUZZ_H
 
+#include <iostream>
+
 class FizzBuzz {
 public:
-    static int Go(int argc, char * argv[]);
+    FizzBuzz();
+    FizzBuzz(int targetNumber, std::string * numberStringsArray, std::ostream * outStream);
+    ~FizzBuzz();
+    int LoadArgs(int argc, char * argv[]);
+    void Iterate();
+
+private:
+    int TargetNumber = 0;
+    std::string * NumberStrings = nullptr;
+    std::ostream * OutputStream = nullptr;
 };
 
 #endif //FIZZBUZZ_FIZZBUZZ_H
