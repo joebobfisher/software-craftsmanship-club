@@ -1,7 +1,7 @@
 #include "FizzBuzz.h"
 
 int FizzBuzz::Go(int argc, char * argv[]) {
-    return 0;
+    return 1;
 }
 
 //    if (argc != 2) {
