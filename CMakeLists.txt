@@ -8,8 +8,7 @@ include_directories(FizzBuzz)
 set(CLASS_FILES
         FizzBuzz/FizzBuzz.cpp
         FizzBuzz/FizzBuzz.h)
-add_executable(FizzBuzz_run ${CLASS_FILES} main.cpp)
-
+add_executable(fizzbuzz ${CLASS_FILES} main.cpp)
 add_library(FizzBuzz_lib ${CLASS_FILES})
 
 add_subdirectory(google_tests)
