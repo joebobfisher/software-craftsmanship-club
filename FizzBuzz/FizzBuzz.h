@@ -8,7 +8,7 @@ public:
     FizzBuzz();
     FizzBuzz(int targetNumber, std::string * numberStringsArray, std::ostream * outStream);
     ~FizzBuzz();
-    int LoadArgs(int argc, char * argv[]);
+    void LoadArgs(int argc, char * argv[]);
     void Iterate();
 
 private:

@@ -1,5 +1,7 @@
 #include "FizzBuzz.h"
 
+#define BASE_10 10
+
 FizzBuzz::FizzBuzz() = default;
 
 FizzBuzz::FizzBuzz(int targetNumber, std::string * numberStringsArray, std::ostream * outStream) {
@@ -12,25 +14,20 @@ FizzBuzz::~FizzBuzz() {
     delete [] NumberStrings;
 }
 
-// TODO return void here once you throw exceptions
-int FizzBuzz::LoadArgs(int argc, char * argv[]) {
+void FizzBuzz::LoadArgs(int argc, char * argv[]) {
     if (argc != 2) {
-        // TODO throw exception here?
-        return 1;
+        throw std::invalid_argument("Too few or too many arguments");
     }
 
-    TargetNumber = (int)strtol(argv[1], nullptr, 10);
+    TargetNumber = (int)strtol(argv[1], nullptr, BASE_10);
 
     if (TargetNumber <= 0) {
-        // TODO throw exception here?
-        return 1;
+        throw std::invalid_argument("Argument must be natural number");
     }
-
-    // TODO just "return" instead of returning int (assuming we have exceptions above)?
-    return 0;
 }
 
 void FizzBuzz::Iterate() {
+    // TODO this check is necessary, but how to test?
     if (NumberStrings == nullptr) {
         NumberStrings = new std::string[TargetNumber];
     }
