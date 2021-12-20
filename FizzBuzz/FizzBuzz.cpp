@@ -12,22 +12,16 @@ FizzBuzz::~FizzBuzz() {
     delete [] NumberStrings;
 }
 
-// TODO return void here once you throw exceptions
-int FizzBuzz::LoadArgs(int argc, char * argv[]) {
+void FizzBuzz::LoadArgs(int argc, char * argv[]) {
     if (argc != 2) {
-        // TODO throw exception here?
-        return 1;
+        throw std::invalid_argument("Too few or too many arguments");
     }
 
     TargetNumber = (int)strtol(argv[1], nullptr, 10);
 
     if (TargetNumber <= 0) {
-        // TODO throw exception here?
-        return 1;
+        throw std::invalid_argument("Argument must be natural number");
     }
-
-    // TODO just "return" instead of returning int (assuming we have exceptions above)?
-    return 0;
 }
 
 void FizzBuzz::Iterate() {

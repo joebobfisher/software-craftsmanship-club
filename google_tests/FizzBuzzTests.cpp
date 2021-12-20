@@ -22,7 +22,7 @@ protected:
 };
 
 void FizzBuzzTest::SetUp() {
-    srand(time(NULL));
+    srand(time(nullptr));
 
     argc = 2;
 
@@ -37,26 +37,35 @@ void FizzBuzzTest::SetUp() {
 TEST_F(FizzBuzzTest, LoadArgs_FailsOnNoArgs) {
     argc = 1;
 
-    auto result = target.LoadArgs(argc, argv);
-
-    ASSERT_EQ(result, 1);
+    try {
+        target.LoadArgs(argc, argv);
+    }
+    catch (std::invalid_argument &e) {
+        ASSERT_STREQ(e.what(), "Too few or too many arguments");
+    }
 }
 
 TEST_F(FizzBuzzTest, LoadArgs_FailsOnTooManyArgs) {
     argc = rand() % (RAND_MAX - 2) + 2;
 
-    auto result = target.LoadArgs(argc, argv);
-
-    ASSERT_EQ(result, 1);
+    try {
+        target.LoadArgs(argc, argv);
+    }
+    catch (std::invalid_argument &e) {
+        ASSERT_STREQ(e.what(), "Too few or too many arguments");
+    }
 }
 
 TEST_F(FizzBuzzTest, LoadArgs_FailsOnNonIntArg) {
     char abc[] = "abc";
     argv[1] = abc;
 
-    auto result = target.LoadArgs(argc, argv);
-
-    ASSERT_EQ(result, 1);
+    try {
+        target.LoadArgs(argc, argv);
+    }
+    catch (std::invalid_argument &e) {
+        ASSERT_STREQ(e.what(), "Argument must be natural number");
+    }
 }
 
 TEST_F(FizzBuzzTest, LoadArgs_FailsOnNegativeInt) {
@@ -64,15 +73,35 @@ TEST_F(FizzBuzzTest, LoadArgs_FailsOnNegativeInt) {
     itoa(inputNumber, inputNumberCStr, 10);
     argv[1] = inputNumberCStr;
 
-    auto result = target.LoadArgs(argc, argv);
+    try {
+        target.LoadArgs(argc, argv);
+    }
+    catch (std::invalid_argument &e) {
+        ASSERT_STREQ(e.what(), "Argument must be natural number");
+    }
+}
 
-    ASSERT_EQ(result, 1);
+TEST_F(FizzBuzzTest, LoadArgs_FailsOnZero) {
+    itoa(0, inputNumberCStr, 10);
+    argv[1] = inputNumberCStr;
+
+    try {
+        target.LoadArgs(argc, argv);
+    }
+    catch (std::invalid_argument &e) {
+        ASSERT_STREQ(e.what(), "Argument must be natural number");
+    }
 }
 
 TEST_F(FizzBuzzTest, LoadArgs_SucceedsOnCorrectArgs) {
-    auto result = target.LoadArgs(argc, argv);
+    try {
+        target.LoadArgs(argc, argv);
+    }
+    catch (...) {
+        FAIL();
+    }
 
-    ASSERT_EQ(result, 0);
+    SUCCEED();
 }
 
 TEST_F(FizzBuzzTest, Iterate_IteratesNumbersAndFizzBuzz) {
