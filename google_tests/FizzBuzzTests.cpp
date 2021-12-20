@@ -9,6 +9,8 @@
                                      SPACE_FOR_NEG_SIGN + \
                                      SPACE_FOR_NULL_TERM
 
+#define BASE_10 10
+
 class FizzBuzzTest : public ::testing::Test {
 protected:
     void SetUp() override;
@@ -30,7 +32,7 @@ void FizzBuzzTest::SetUp() {
     argv[0] = appName;
 
     inputNumber = rand() % MAX_INPUT_NUMBER + 1;
-    itoa(inputNumber, inputNumberCStr, 10);
+    itoa(inputNumber, inputNumberCStr, BASE_10);
     argv[1] = inputNumberCStr;
 }
 
@@ -70,7 +72,7 @@ TEST_F(FizzBuzzTest, LoadArgs_FailsOnNonIntArg) {
 
 TEST_F(FizzBuzzTest, LoadArgs_FailsOnNegativeInt) {
     inputNumber = inputNumber * -1;
-    itoa(inputNumber, inputNumberCStr, 10);
+    itoa(inputNumber, inputNumberCStr, BASE_10);
     argv[1] = inputNumberCStr;
 
     try {
@@ -82,7 +84,7 @@ TEST_F(FizzBuzzTest, LoadArgs_FailsOnNegativeInt) {
 }
 
 TEST_F(FizzBuzzTest, LoadArgs_FailsOnZero) {
-    itoa(0, inputNumberCStr, 10);
+    itoa(0, inputNumberCStr, BASE_10);
     argv[1] = inputNumberCStr;
 
     try {
@@ -105,8 +107,9 @@ TEST_F(FizzBuzzTest, LoadArgs_SucceedsOnCorrectArgs) {
 }
 
 TEST_F(FizzBuzzTest, Iterate_IteratesNumbersAndFizzBuzz) {
-    std::string expectedArray[15] = {"1","2","Fizz","4","Buzz","Fizz","7","8","Fizz","Buzz","11","Fizz","13","14","FizzBuzz"};
-    std::string * actualArray = new std::string[15];
+    std::string expectedArray[15] = {"1","2","Fizz","4","Buzz","Fizz","7","8",
+                                     "Fizz","Buzz","11","Fizz","13","14","FizzBuzz"};
+    auto * actualArray = new std::string[15];
 
     // TODO why does destructor run _after_ new constructor (deletes our actualArray)?!
     FizzBuzz newTarget = FizzBuzz(15, actualArray, nullptr);

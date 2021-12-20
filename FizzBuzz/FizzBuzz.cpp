@@ -1,5 +1,7 @@
 #include "FizzBuzz.h"
 
+#define BASE_10 10
+
 FizzBuzz::FizzBuzz() = default;
 
 FizzBuzz::FizzBuzz(int targetNumber, std::string * numberStringsArray, std::ostream * outStream) {
@@ -17,7 +19,7 @@ void FizzBuzz::LoadArgs(int argc, char * argv[]) {
         throw std::invalid_argument("Too few or too many arguments");
     }
 
-    TargetNumber = (int)strtol(argv[1], nullptr, 10);
+    TargetNumber = (int)strtol(argv[1], nullptr, BASE_10);
 
     if (TargetNumber <= 0) {
         throw std::invalid_argument("Argument must be natural number");
@@ -25,6 +27,7 @@ void FizzBuzz::LoadArgs(int argc, char * argv[]) {
 }
 
 void FizzBuzz::Iterate() {
+    // TODO this check is necessary, but how to test?
     if (NumberStrings == nullptr) {
         NumberStrings = new std::string[TargetNumber];
     }
