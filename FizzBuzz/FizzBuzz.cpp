@@ -27,7 +27,7 @@ void FizzBuzz::LoadArgs(int argc, char * argv[]) {
 }
 
 void FizzBuzz::Iterate() {
-    // TODO this check is necessary, but how to test?
+    // TODO this if statement is necessary, but how to test it?
     if (NumberStrings == nullptr) {
         NumberStrings = new std::string[TargetNumber];
     }
@@ -49,7 +49,10 @@ void FizzBuzz::Iterate() {
 
         NumberStrings[i] = numberString;
 
-        // TODO Inject your own cout to properly test (and not print during test runs!)
-        std::cout << numberString << std::endl;
+        // TODO Again how to test the if statement?
+        if (OutputStream == nullptr) {
+            OutputStream = &std::cout;
+        }
+        *OutputStream << numberString << std::endl;
     }
 }

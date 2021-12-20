@@ -1,5 +1,6 @@
 #include "gtest/gtest.h"
 #include "FizzBuzz.h"
+#include "DummyOutputStreamBuf.h"
 
 #define MAX_INPUT_NUMBER 99
 #define MAX_INPUT_NUMBER_CSTR_SIZE 2
@@ -36,7 +37,7 @@ void FizzBuzzTest::SetUp() {
     argv[1] = inputNumberCStr;
 }
 
-TEST_F(FizzBuzzTest, LoadArgs_FailsOnNoArgs) {
+TEST_F(FizzBuzzTest, LoadArgs_FailsOnNoArgs) { // NOLINT Clang-Tidy doesn't get Google Test macros
     argc = 1;
 
     try {
@@ -47,7 +48,7 @@ TEST_F(FizzBuzzTest, LoadArgs_FailsOnNoArgs) {
     }
 }
 
-TEST_F(FizzBuzzTest, LoadArgs_FailsOnTooManyArgs) {
+TEST_F(FizzBuzzTest, LoadArgs_FailsOnTooManyArgs) { // NOLINT Clang-Tidy doesn't get Google Test macros
     argc = rand() % (RAND_MAX - 2) + 2;
 
     try {
@@ -58,7 +59,7 @@ TEST_F(FizzBuzzTest, LoadArgs_FailsOnTooManyArgs) {
     }
 }
 
-TEST_F(FizzBuzzTest, LoadArgs_FailsOnNonIntArg) {
+TEST_F(FizzBuzzTest, LoadArgs_FailsOnNonIntArg) { // NOLINT Clang-Tidy doesn't get Google Test macros
     char abc[] = "abc";
     argv[1] = abc;
 
@@ -70,7 +71,7 @@ TEST_F(FizzBuzzTest, LoadArgs_FailsOnNonIntArg) {
     }
 }
 
-TEST_F(FizzBuzzTest, LoadArgs_FailsOnNegativeInt) {
+TEST_F(FizzBuzzTest, LoadArgs_FailsOnNegativeInt) { // NOLINT Clang-Tidy doesn't get Google Test macros
     inputNumber = inputNumber * -1;
     itoa(inputNumber, inputNumberCStr, BASE_10);
     argv[1] = inputNumberCStr;
@@ -83,7 +84,7 @@ TEST_F(FizzBuzzTest, LoadArgs_FailsOnNegativeInt) {
     }
 }
 
-TEST_F(FizzBuzzTest, LoadArgs_FailsOnZero) {
+TEST_F(FizzBuzzTest, LoadArgs_FailsOnZero) { // NOLINT Clang-Tidy doesn't get Google Test macros
     itoa(0, inputNumberCStr, BASE_10);
     argv[1] = inputNumberCStr;
 
@@ -95,7 +96,7 @@ TEST_F(FizzBuzzTest, LoadArgs_FailsOnZero) {
     }
 }
 
-TEST_F(FizzBuzzTest, LoadArgs_SucceedsOnCorrectArgs) {
+TEST_F(FizzBuzzTest, LoadArgs_SucceedsOnCorrectArgs) { // NOLINT Clang-Tidy doesn't get Google Test macros
     try {
         target.LoadArgs(argc, argv);
     }
@@ -106,13 +107,14 @@ TEST_F(FizzBuzzTest, LoadArgs_SucceedsOnCorrectArgs) {
     SUCCEED();
 }
 
-TEST_F(FizzBuzzTest, Iterate_IteratesNumbersAndFizzBuzz) {
+TEST_F(FizzBuzzTest, Iterate_IteratesNumbersAndFizzBuzz) { // NOLINT Clang-Tidy doesn't get Google Test macros
     std::string expectedArray[15] = {"1","2","Fizz","4","Buzz","Fizz","7","8",
                                      "Fizz","Buzz","11","Fizz","13","14","FizzBuzz"};
     auto * actualArray = new std::string[15];
+    DummyOutputStreamBuf dummyBuf;
+    std::ostream dummyOutStream(&dummyBuf);
 
-    // TODO why does destructor run _after_ new constructor (deletes our actualArray)?!
-    FizzBuzz newTarget = FizzBuzz(15, actualArray, nullptr);
+    FizzBuzz newTarget = FizzBuzz(15, actualArray, &dummyOutStream);
 
     newTarget.Iterate();
 
@@ -120,3 +122,4 @@ TEST_F(FizzBuzzTest, Iterate_IteratesNumbersAndFizzBuzz) {
         ASSERT_EQ(actualArray[i], expectedArray[i]);
     }
 }
+
