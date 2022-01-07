@@ -32,27 +32,31 @@ void FizzBuzz::Iterate() {
         NumberStrings = new std::string[TargetNumber];
     }
 
+    // TODO Again how to test the if statement?
+    if (OutputStream == nullptr) {
+        OutputStream = &std::cout;
+    }
+
     for (int i = 0; i < TargetNumber; i++) {
         int number = i + 1;
         std::string numberString;
+        bool fizzBuzzFlag = false;
 
-        if (number % 3 != 0 && number % 5 != 0) {
+        if (number % 3 == 0) {
+            numberString += "Fizz";
+            fizzBuzzFlag = true;
+        }
+
+        if (number % 5 == 0) {
+            numberString += "Buzz";
+            fizzBuzzFlag = true;
+        }
+
+        if (fizzBuzzFlag == false) {
             numberString = std::to_string(number);
-        } else {
-            if (number % 3 == 0) {
-                numberString += "Fizz";
-            }
-            if (number % 5 == 0) {
-                numberString += "Buzz";
-            }
         }
 
         NumberStrings[i] = numberString;
-
-        // TODO Again how to test the if statement?
-        if (OutputStream == nullptr) {
-            OutputStream = &std::cout;
-        }
         *OutputStream << numberString << std::endl;
     }
 }
