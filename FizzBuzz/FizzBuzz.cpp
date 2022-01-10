@@ -10,10 +10,13 @@ FizzBuzz::FizzBuzz(int targetNumber, std::ostream * outStream) {
 }
 
 void FizzBuzz::LoadArgs(int argc, char * argv[]) {
+    // TODO need to assume "100" if program called with no args
     if (argc != 2) {
         throw std::invalid_argument("Too few or too many arguments");
     }
 
+    // TODO should probably abstract this away (won't remember what this is here for...)
+    // TODO should be part of a separate class? LoadArgs class?
     TargetNumber = (int)strtol(argv[1], nullptr, BASE_10);
 
     if (TargetNumber <= 0) {
@@ -25,6 +28,8 @@ void FizzBuzz::Iterate() {
     for (int number = 1; number < TargetNumber+1; number++) {
         std::string numberString;
 
+        // TODO might want to break this up for testing, a la this SO answer.
+        // https://stackoverflow.com/questions/47354280/what-is-the-best-way-of-testing-private-methods-with-googletest
         AddFizzToStringIfNeeded(number, numberString);
         AddBuzzToStringIfNeeded(number, numberString);
         SetStringToNumberIfNotSetYet(number, numberString);
@@ -46,7 +51,7 @@ void FizzBuzz::AddBuzzToStringIfNeeded(int number, std::string &numberString) {
 }
 
 void FizzBuzz::SetStringToNumberIfNotSetYet(int number, std::string &numberString) {
-    if (numberString == "") {
+    if (numberString.empty()) {
         numberString = std::to_string(number);
     }
 }

@@ -11,9 +11,9 @@ public:
     void Iterate();
 
 private:
-    void AddFizzToStringIfNeeded(int number, std::string &numberString);
-    void AddBuzzToStringIfNeeded(int number, std::string &numberString);
-    void SetStringToNumberIfNotSetYet(int number, std::string &numberString);
+    static void AddFizzToStringIfNeeded(int number, std::string &numberString);
+    static void AddBuzzToStringIfNeeded(int number, std::string &numberString);
+    static void SetStringToNumberIfNotSetYet(int number, std::string &numberString);
 
     int TargetNumber = 0;
     std::ostream * OutputStream = &std::cout;
