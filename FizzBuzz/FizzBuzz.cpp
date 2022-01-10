@@ -24,22 +24,40 @@ void FizzBuzz::LoadArgs(int argc, char * argv[]) {
 void FizzBuzz::Iterate() {
     for (int number = 1; number < TargetNumber+1; number++) {
         std::string numberString;
-        bool fizzBuzzFlag = false;
+        bool fizzOrBuzzWasAdded;
 
-        if (number % 3 == 0) {
-            numberString += "Fizz";
-            fizzBuzzFlag = true;
-        }
-
-        if (number % 5 == 0) {
-            numberString += "Buzz";
-            fizzBuzzFlag = true;
-        }
-
-        if (!fizzBuzzFlag) {
-            numberString = std::to_string(number);
-        }
+        fizzOrBuzzWasAdded = AddFizzToString(number, numberString);
+        fizzOrBuzzWasAdded |= AddBuzzToString(number, numberString);
+        SetStringToNumber(number, numberString, fizzOrBuzzWasAdded);
 
         *OutputStream << numberString << std::endl;
+    }
+}
+
+bool FizzBuzz::AddFizzToString(int number, std::string &numberString) {
+    bool addedFizz = false;
+
+    if (number % 3 == 0) {
+        numberString += "Fizz";
+        addedFizz = true;
+    }
+
+    return addedFizz;
+}
+
+bool FizzBuzz::AddBuzzToString(int number, std::string &numberString) {
+    bool addedBuzz = false;
+
+    if (number % 5 == 0) {
+        numberString += "Buzz";
+        addedBuzz = true;
+    }
+
+    return addedBuzz;
+}
+
+void FizzBuzz::SetStringToNumber(int number, std::string &numberString, bool fizzOrBuzzWasAdded) {
+    if (!fizzOrBuzzWasAdded) {
+        numberString = std::to_string(number);
     }
 }

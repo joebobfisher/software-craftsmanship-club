@@ -11,6 +11,10 @@ public:
     void Iterate();
 
 private:
+    bool AddFizzToString(int number, std::string &numberString);
+    bool AddBuzzToString(int number, std::string &numberString);
+    void SetStringToNumber(int number, std::string &numberString, bool fizzOrBuzzWasAdded);
+
     int TargetNumber = 0;
     std::ostream * OutputStream = &std::cout;
 };
