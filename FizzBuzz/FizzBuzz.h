@@ -6,15 +6,13 @@
 class FizzBuzz {
 public:
     FizzBuzz();
-    FizzBuzz(int targetNumber, std::string * numberStringsArray, std::ostream * outStream);
-    ~FizzBuzz();
+    FizzBuzz(int targetNumber, std::ostream * outStream);
     void LoadArgs(int argc, char * argv[]);
     void Iterate();
 
 private:
     int TargetNumber = 0;
-    std::string * NumberStrings = nullptr;
-    std::ostream * OutputStream = nullptr;
+    std::ostream * OutputStream = &std::cout;
 };
 
 #endif //FIZZBUZZ_FIZZBUZZ_H

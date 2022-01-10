@@ -4,7 +4,7 @@ add_subdirectory(lib)
 include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 include_directories(../DummyOutputStreamBuf)
 
-set(TEST_FILES ../DummyOutputStreamBuf/DummyOutputStreamBuf.cpp FizzBuzzTests.cpp)
+set(TEST_FILES FizzBuzzTests.cpp)
 add_executable(google_tests_run ${TEST_FILES})
 
 target_link_libraries(google_tests_run FizzBuzz_lib)
