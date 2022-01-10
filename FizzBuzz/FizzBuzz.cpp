@@ -24,40 +24,29 @@ void FizzBuzz::LoadArgs(int argc, char * argv[]) {
 void FizzBuzz::Iterate() {
     for (int number = 1; number < TargetNumber+1; number++) {
         std::string numberString;
-        bool fizzOrBuzzWasAdded;
 
-        fizzOrBuzzWasAdded = AddFizzToString(number, numberString);
-        fizzOrBuzzWasAdded |= AddBuzzToString(number, numberString);
-        SetStringToNumber(number, numberString, fizzOrBuzzWasAdded);
+        AddFizzToStringIfNeeded(number, numberString);
+        AddBuzzToStringIfNeeded(number, numberString);
+        SetStringToNumberIfNotSetYet(number, numberString);
 
         *OutputStream << numberString << std::endl;
     }
 }
 
-bool FizzBuzz::AddFizzToString(int number, std::string &numberString) {
-    bool addedFizz = false;
-
+void FizzBuzz::AddFizzToStringIfNeeded(int number, std::string &numberString) {
     if (number % 3 == 0) {
         numberString += "Fizz";
-        addedFizz = true;
     }
-
-    return addedFizz;
 }
 
-bool FizzBuzz::AddBuzzToString(int number, std::string &numberString) {
-    bool addedBuzz = false;
-
+void FizzBuzz::AddBuzzToStringIfNeeded(int number, std::string &numberString) {
     if (number % 5 == 0) {
         numberString += "Buzz";
-        addedBuzz = true;
     }
-
-    return addedBuzz;
 }
 
-void FizzBuzz::SetStringToNumber(int number, std::string &numberString, bool fizzOrBuzzWasAdded) {
-    if (!fizzOrBuzzWasAdded) {
+void FizzBuzz::SetStringToNumberIfNotSetYet(int number, std::string &numberString) {
+    if (numberString == "") {
         numberString = std::to_string(number);
     }
 }
