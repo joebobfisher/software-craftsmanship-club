@@ -108,18 +108,24 @@ TEST_F(FizzBuzzTest, LoadArgs_SucceedsOnCorrectArgs) { // NOLINT Clang-Tidy does
 }
 
 TEST_F(FizzBuzzTest, Iterate_IteratesNumbersAndFizzBuzz) { // NOLINT Clang-Tidy doesn't get Google Test macros
-    std::string expectedArray[15] = {"1","2","Fizz","4","Buzz","Fizz","7","8",
-                                     "Fizz","Buzz","11","Fizz","13","14","FizzBuzz"};
-    auto * actualArray = new std::string[15];
-    DummyOutputStreamBuf dummyBuf;
-    std::ostream dummyOutStream(&dummyBuf);
+    std::vector<std::string> expectedAnswers { "1","2","Fizz","4","Buzz","Fizz","7","8",
+                                               "Fizz","Buzz","11","Fizz","13","14","FizzBuzz" };
+    std::string actual;
 
-    FizzBuzz newTarget = FizzBuzz(15, actualArray, &dummyOutStream);
+    std::stringstream stream;
+    std::ostream dummyOutStream(stream.rdbuf());
+
+    FizzBuzz newTarget = FizzBuzz(15, &dummyOutStream);
 
     newTarget.Iterate();
 
-    for (int i = 0; i < 15; i++) {
-        ASSERT_EQ(actualArray[i], expectedArray[i]);
+    for (auto &expected : expectedAnswers) {
+        std::getline(stream, actual);
+        ASSERT_STREQ(actual.c_str(), expected.c_str());
+    }
+
+    if (std::getline(stream, actual)) {
+        FAIL();
     }
 }
 

@@ -4,14 +4,9 @@
 
 FizzBuzz::FizzBuzz() = default;
 
-FizzBuzz::FizzBuzz(int targetNumber, std::string * numberStringsArray, std::ostream * outStream) {
+FizzBuzz::FizzBuzz(int targetNumber, std::ostream * outStream) {
     TargetNumber = targetNumber;
-    NumberStrings = numberStringsArray;
     OutputStream = outStream;
-}
-
-FizzBuzz::~FizzBuzz() {
-    delete [] NumberStrings;
 }
 
 void FizzBuzz::LoadArgs(int argc, char * argv[]) {
@@ -27,18 +22,7 @@ void FizzBuzz::LoadArgs(int argc, char * argv[]) {
 }
 
 void FizzBuzz::Iterate() {
-    // TODO this if statement is necessary, but how to test it?
-    if (NumberStrings == nullptr) {
-        NumberStrings = new std::string[TargetNumber];
-    }
-
-    // TODO Again how to test the if statement?
-    if (OutputStream == nullptr) {
-        OutputStream = &std::cout;
-    }
-
-    for (int i = 0; i < TargetNumber; i++) {
-        int number = i + 1;
+    for (int number = 1; number < TargetNumber+1; number++) {
         std::string numberString;
         bool fizzBuzzFlag = false;
 
@@ -52,11 +36,10 @@ void FizzBuzz::Iterate() {
             fizzBuzzFlag = true;
         }
 
-        if (fizzBuzzFlag == false) {
+        if (!fizzBuzzFlag) {
             numberString = std::to_string(number);
         }
 
-        NumberStrings[i] = numberString;
         *OutputStream << numberString << std::endl;
     }
 }
