@@ -17,9 +17,8 @@ void Rover::ProcessCommands(std::string &moveCommandString)
 {
     SanitizeCommandString(moveCommandString);
 
-    for (int i = 0; i < moveCommandString.length(); i++)
+    for (auto cmd : moveCommandString)
     {
-        auto cmd = moveCommandString.c_str()[i];
         ProcessCommand(cmd);
     }
 
