@@ -1,3 +1,5 @@
-DISTek Software Craftsmanship Club 01 - Fizzbuzz
-================================================
-Coding Kata: [FizzBuzz on Coding Dojo](https://codingdojo.org/kata/FizzBuzz/)
+DISTek Software Craftsmanship Club
+==================================
+Going through the book _Clean Code_ by Robert C. Martin, and doing programming katas for each chapter!
+
+1. Clean Code -- [FizzBuzz](fizzbuzz/readme.md)
