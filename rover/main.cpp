@@ -9,4 +9,6 @@ int main(int argc, char** argv)
     std::string endPositionAndHeading = rover.RoveFromMain();
 
     std::cout << endPositionAndHeading << std::endl;
+
+    return 0;
 }

@@ -23,7 +23,7 @@ private:
     void ProcessTurnLeftCommand();
 
     ArgLoader _loader;
-    struct RoverState _state = {0, 0, 'N'};
+    struct RoverState _roverPositionAndHeading = {0, 0, 'N'};
 
 public:
     explicit Rover(ArgLoader &loader);

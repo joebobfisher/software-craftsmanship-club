@@ -69,7 +69,7 @@ void Rover::ProcessCommand(char cmd)
 
 void Rover::ProcessMoveCommand()
 {
-    switch (_state.heading)
+    switch (_roverPositionAndHeading.heading)
     {
         case 'N':
             MoveNorth();
@@ -88,81 +88,81 @@ void Rover::ProcessMoveCommand()
 
 void Rover::MoveNorth()
 {
-    _state.y++;
-    if (_state.y >= MAX_LENGTH_OF_AREA)
+    _roverPositionAndHeading.y++;
+    if (_roverPositionAndHeading.y >= MAX_LENGTH_OF_AREA)
     {
-        _state.y = 0;
+        _roverPositionAndHeading.y = 0;
     }
 }
 
 void Rover::MoveEast()
 {
-    _state.x++;
-    if (_state.x >= MAX_WIDTH_OF_AREA)
+    _roverPositionAndHeading.x++;
+    if (_roverPositionAndHeading.x >= MAX_WIDTH_OF_AREA)
     {
-        _state.x = 0;
+        _roverPositionAndHeading.x = 0;
     }
 }
 
 void Rover::MoveSouth()
 {
-    _state.y--;
-    if (_state.y < 0)
+    _roverPositionAndHeading.y--;
+    if (_roverPositionAndHeading.y < 0)
     {
-        _state.y = MAX_LENGTH_OF_AREA;
+        _roverPositionAndHeading.y = MAX_LENGTH_OF_AREA;
     }
 }
 
 void Rover::MoveWest()
 {
-    _state.x--;
-    if (_state.x < 0)
+    _roverPositionAndHeading.x--;
+    if (_roverPositionAndHeading.x < 0)
     {
-        _state.x = MAX_WIDTH_OF_AREA;
+        _roverPositionAndHeading.x = MAX_WIDTH_OF_AREA;
     }
 }
 
 void Rover::ProcessTurnRightCommand()
 {
-    switch (_state.heading)
+    switch (_roverPositionAndHeading.heading)
     {
         case 'N':
-            _state.heading = 'E';
+            _roverPositionAndHeading.heading = 'E';
             break;
         case 'E':
-            _state.heading = 'S';
+            _roverPositionAndHeading.heading = 'S';
             break;
         case 'S':
-            _state.heading = 'W';
+            _roverPositionAndHeading.heading = 'W';
             break;
         case 'W':
-            _state.heading = 'N';
+            _roverPositionAndHeading.heading = 'N';
             break;
     }
 }
 
 void Rover::ProcessTurnLeftCommand()
 {
-    switch (_state.heading)
+    switch (_roverPositionAndHeading.heading)
     {
         case 'N':
-            _state.heading = 'W';
+            _roverPositionAndHeading.heading = 'W';
             break;
         case 'E':
-            _state.heading = 'N';
+            _roverPositionAndHeading.heading = 'N';
             break;
         case 'S':
-            _state.heading = 'E';
+            _roverPositionAndHeading.heading = 'E';
             break;
         case 'W':
-            _state.heading = 'S';
+            _roverPositionAndHeading.heading = 'S';
             break;
     }
 }
 
 std::string Rover::GetStateAsString() const
 {
-    return std::to_string(_state.x) + ":" +
-           std::to_string(_state.y) + ":" +
-           _state.heading;
+    return std::to_string(_roverPositionAndHeading.x) + ":" +
+           std::to_string(_roverPositionAndHeading.y) + ":" +
+           _roverPositionAndHeading.heading;
 }
