@@ -1,9 +1,12 @@
 #include <iostream>
+#include <boost/program_options.hpp>
+
+namespace opt = boost::program_options;
 
 int main(int argc, char ** argv) {
 
     // get arguments: options for secret phrase, message
-    //      (use std::find() like here: https://stackoverflow.com/questions/865668/parsing-command-line-arguments-in-c
+    //      use boost::program_options
     // sanitize and normalize secret phrase & message (remove spaces, lower case)
     // repeat letters of secret phrase over and over again until same size as message
     //      (handle case where message is smaller than secret phrase)
@@ -14,7 +17,17 @@ int main(int argc, char ** argv) {
     // return encrypted_message
     // TODO add decrypting as well
 
-    std::cout << "Hello, World!" << std::endl;
+    opt::options_description description("Options");
+    description.add_options()("help", "Write help message");
+
+    opt::variables_map options;
+    opt::store(opt::parse_command_line(argc, argv, description), options);
+    opt::notify(options);
+
+    if (options.count("help")) {
+        std::cout << description << std::endl;
+        return 0;
+    }
 
     return 0;
 }
