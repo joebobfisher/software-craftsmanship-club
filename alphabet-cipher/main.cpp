@@ -18,7 +18,9 @@ int main(int argc, char ** argv) {
     // TODO add decrypting as well
 
     opt::options_description description("Options");
-    description.add_options()("help", "Write help message");
+    description.add_options()
+        ("help,h", "Write help message")
+        ("encrypt,e", "Encrypt <message> with <secretPhrase>");
 
     opt::variables_map options;
     opt::store(opt::parse_command_line(argc, argv, description), options);
