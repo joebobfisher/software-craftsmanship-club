@@ -39,8 +39,21 @@ int main(int argc, char ** argv) {
         // TODO --encrypt with no phrase just dies -- should have example usage string
         // TODO need <message> to be a "positional" option, so we can see it from program_options
         // TODO allow giving <message> from STDIN (but not phrase)
-        std::cout << "Caught --encrypt; given secret word was: \"" << options["encrypt"].as<std::string>() << "\"" << std::endl;
-        std::cout << "Caught --message; given message was: \"" << options["message"].as<std::string>() << "\"" << std::endl;
+
+        auto keyword = options["encrypt"].as<std::string>();
+        auto message = options["message"].as<std::string>();
+
+        // strip out spaces & non-alphabetic characters
+        // Careful! This solution only works for ASCII (https://stackoverflow.com/questions/83439/remove-spaces-from-stdstring-in-c)
+        keyword.erase(std::remove_if(keyword.begin(), keyword.end(), []( const char & c ) { return !::isalpha(c); }), keyword.end());
+        message.erase(std::remove_if(message.begin(), message.end(), []( const char & c ) { return !::isalpha(c); }), message.end());
+
+        // transform to lower case only
+        std::transform(keyword.begin(), keyword.end(), keyword.begin(), ::tolower);
+        std::transform(message.begin(), message.end(), message.begin(), ::tolower);
+
+        std::cout << "keyword: \"" << keyword << "\"" << std::endl;
+        std::cout << "message: \"" << message << "\"" << std::endl;
     } else {
         std::cout << "See \"alphabet_cipher --help\" for help.";
     }
