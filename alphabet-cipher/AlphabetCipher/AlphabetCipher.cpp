@@ -57,9 +57,12 @@ void AlphabetCipher::DefineOptions() {
 }
 
 void AlphabetCipher::Run(int argc, char ** argv) {
-    // TODO break options-handling into separate class (maybe even sanitization stuff)
+    // TODO break options-handling into separate class (maybe even sanitization stuff too)
     ReadOptionsFromCommandLine(argc, argv);
+    ProcessOptions();
+}
 
+void AlphabetCipher::ProcessOptions() {
     if (ReceivedValidEncryptionRequest()) {
         RunEncryption();
     } else if (ReceivedValidDecryptionRequest()) {
@@ -81,12 +84,19 @@ bool AlphabetCipher::ReceivedValidEncryptionRequest() {
 }
 
 void AlphabetCipher::RunEncryption() {
-    _keyword = _options["encrypt"].as<std::string>();
-    _message = _options["message"].as<std::string>();
+    RunCipher("encrypt", &AlphabetCipher::EncryptMessage);
+}
 
+void AlphabetCipher::RunCipher(const std::string& encryptOrDecrypt, std::string (AlphabetCipher::*cipherFunc)()) {
+    ReadKeywordAndMessage(encryptOrDecrypt);
     SanitizeInputs();
-    std::string encryptedMessage = EncryptMessage();
+    std::string encryptedMessage = (this->*cipherFunc)();
     std::cout << encryptedMessage << std::endl;
+}
+
+void AlphabetCipher::ReadKeywordAndMessage(const std::string& encryptOrDecrypt) {
+    _keyword = _options[encryptOrDecrypt].as<std::string>();
+    _message = _options["message"].as<std::string>();
 }
 
 void AlphabetCipher::SanitizeInputs() {
@@ -137,12 +147,7 @@ bool AlphabetCipher::ReceivedValidDecryptionRequest() {
 }
 
 void AlphabetCipher::RunDecryption() {
-    _keyword = _options["decrypt"].as<std::string>();
-    _message = _options["message"].as<std::string>();
-
-    SanitizeInputs();
-    std::string decryptedMessage = DecryptMessage();
-    std::cout << decryptedMessage << std::endl;
+    RunCipher("decrypt", &AlphabetCipher::DecryptMessage);
 }
 
 std::string AlphabetCipher::DecryptMessage() {

@@ -17,8 +17,11 @@ private:
     static std::map<char, std::map<char, char>>& TransposeEncryptionMap();
     void DefineOptions();
     void ReadOptionsFromCommandLine(int argc, char **argv);
+    void ProcessOptions();
     bool ReceivedValidEncryptionRequest();
     void RunEncryption();
+    void ReadKeywordAndMessage(const std::string& encryptOrDecrypt);
+    void RunCipher(const std::string& encryptOrDecrypt, std::string (AlphabetCipher::*cipherFunc)());
     void SanitizeInputs();
     static void Sanitize(std::string& stringToModify);
     static void RemoveNonAlphabeticCharacters(std::string& stringToModify);
