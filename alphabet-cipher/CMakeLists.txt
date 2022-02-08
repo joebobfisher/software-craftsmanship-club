@@ -9,6 +9,8 @@ set(Boost_USE_MULTITHREADED ON)
 set(Boost_USE_STATIC_RUNTIME ON)
 find_package(Boost REQUIRED COMPONENTS program_options)
 
-add_executable(alphabet_cipher main.cpp)
+set(CLASS_FILES AlphabetCipher/AlphabetCipher.cpp AlphabetCipher/AlphabetCipher.h)
+
+add_executable(alphabet_cipher main.cpp ${CLASS_FILES})
 target_include_directories(alphabet_cipher PUBLIC ${Boost_INCLUDE_DIRS})
 target_link_libraries(alphabet_cipher ${Boost_LIBRARIES})
