@@ -33,3 +33,10 @@ The transactions are arithmetic operations wrapped by parentheses. In case a rec
 ((()())) -> 0
 3 + ( 2 * 1 ) -> Invalid record error
 ```
+
+Random New Thing I Learned
+--------------------------
+```
+clang-tidy -checks=-*,readability-*,cppcoreguidelines-*,cert-*,bugprone-*,clang-analyzer-*,modernize-*,performance-*,portability-* -dump-config > ../.clang-tidy
+```
+The above sets up clang-tidy settings for your particular project. Check out the available checks at [clang-tidy's site](clang.llvm.org/extra/clang-tidy).
