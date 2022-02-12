@@ -13,7 +13,9 @@ set(CMAKE_CXX_STANDARD 11)
 
 include_directories(Arithmetic)
 
-set(CLASS_FILES Arithmetic/Arithmetic.h Arithmetic/Arithmetic.cpp)
+set(CLASS_FILES
+        Arithmetic/Arithmetic.h
+        Arithmetic/Arithmetic.cpp)
 
 add_executable(arithmetic main.cpp ${CLASS_FILES})
 add_library(arithmetic_lib ${CLASS_FILES})
