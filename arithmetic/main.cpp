@@ -1,7 +1,10 @@
 #include <iostream>
+#include "Arithmetic/Arithmetic.h"
 
 auto main() -> int {
-    std::cout << "Hello, world!" << std::endl;
+    Arithmetic arithmetic;
+
+    std::cout << arithmetic.Do("(1 + 1)") << std::endl;
 
     return 0;
 }
