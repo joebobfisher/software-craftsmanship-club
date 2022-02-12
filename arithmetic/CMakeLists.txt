@@ -1,16 +1,16 @@
-cmake_minimum_required(VERSION 3.21)
-project(alphabet_cipher)
+cmake_minimum_required(VERSION 3.16)
+project(arithmetic)
 
 set(CMAKE_CXX_STANDARD 11)
 
-set(BOOST_ROOT "C:/Program Files/boost/boost_1_78_0")
-set(Boost_USE_STATIC_LIBS ON)
-set(Boost_USE_MULTITHREADED ON)
-set(Boost_USE_STATIC_RUNTIME ON)
-find_package(Boost REQUIRED COMPONENTS program_options)
+# cmake 3.16 doesn't support setting the toolchain via VS Code's extension. ¯\_(ツ)_/¯
+# use these options for cross-compiling to Windows from WSL
+set(CMAKE_SYSTEM_NAME Windows)
+SET(CMAKE_C_COMPILER x86_64-w64-mingw32-gcc)
+SET(CMAKE_CXX_COMPILER x86_64-w64-mingw32-g++)
+SET(CMAKE_RC_COMPILER x86_64-w64-mingw32-windres)
+set(CMAKE_RANLIB x86_64-w64-mingw32-ranlib)
 
-set(CLASS_FILES AlphabetCipher/AlphabetCipher.cpp AlphabetCipher/AlphabetCipher.h)
+set(CLASS_FILES)
 
-add_executable(alphabet_cipher main.cpp ${CLASS_FILES})
-target_include_directories(alphabet_cipher PUBLIC ${Boost_INCLUDE_DIRS})
-target_link_libraries(alphabet_cipher ${Boost_LIBRARIES})
+add_executable(arithmetic.exe main.cpp ${CLASS_FILES})
