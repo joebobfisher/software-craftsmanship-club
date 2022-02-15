@@ -2,5 +2,5 @@
 
 class Arithmetic {
 public:
-    auto Do(std::string expression) -> int;
+    auto Do(const std::string& expression) -> int;
 };

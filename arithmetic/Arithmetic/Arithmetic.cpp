@@ -1,6 +1,6 @@
 #include "Arithmetic.h"
 
-auto Arithmetic::Do(std::string expression) -> int {
+auto Arithmetic::Do(const std::string& expression) -> int {
     // parse expression string
     //      (recursion if parentheses encountered?)
     // should error out if terms encountered before parentheses...
