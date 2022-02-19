@@ -75,6 +75,9 @@ auto Arithmetic::Do(const std::string& expression) -> int {
 //        }
 //    }
 
+    std::vector<std::string> v {"(","(","1","+","2",")","*","(","3","*","4",")",")"};
+    Calculate(v, 0, v.size());
+
     return 0;
 }
 
@@ -96,7 +99,9 @@ auto Arithmetic::Calculate(std::vector<std::string>& tokens, int start, int end)
                     auto result = Arithmetic::Calculate(tokens, j+1, i);
                     tokens.erase(tokens.begin()+j, tokens.begin()+i+1);
                     tokens.insert(tokens.begin()+i, std::to_string(result));
-                    end -= i - j + 1;
+                    end -= i - j;
+                    i = j;
+                    break;
                 }
             }
         }
@@ -104,35 +109,35 @@ auto Arithmetic::Calculate(std::vector<std::string>& tokens, int start, int end)
 
     // PEMDAS: MD
     // search whole token vector for * & /
-    for (auto token : tokens) {
-        if (token == "*" || token == "/") {
-            if (token == "*") {
-                // get operands to left and right
-                // do *
-                // replace operands & operator with result in token vector
-            } else {
-                // get operands to left and right
-                // do /
-                // replace operands & operator with result in token vector
-            }
-        }
-    }
+//    for (auto token : tokens) {
+//        if (token == "*" || token == "/") {
+//            if (token == "*") {
+//                // get operands to left and right
+//                // do *
+//                // replace operands & operator with result in token vector
+//            } else {
+//                // get operands to left and right
+//                // do /
+//                // replace operands & operator with result in token vector
+//            }
+//        }
+//    }
 
     // PEMDAS: AS
     // search whole token vector for + & -
-    for (auto token : tokens) {
-        if (token == "+" || token == "-") {
-            if (token == "+") {
-                // get operands to left and right
-                // do +
-                // replace operands & operator with result in token vector
-            } else {
-                // get operands to left and right
-                // do -
-                // replace operands & operator with result in token vector
-            }
-        }
-    }
+//    for (auto token : tokens) {
+//        if (token == "+" || token == "-") {
+//            if (token == "+") {
+//                // get operands to left and right
+//                // do +
+//                // replace operands & operator with result in token vector
+//            } else {
+//                // get operands to left and right
+//                // do -
+//                // replace operands & operator with result in token vector
+//            }
+//        }
+//    }
 
     // PEMDAS: P
     // There should only be a single closing paren left in token vector, along with answer
