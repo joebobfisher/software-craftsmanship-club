@@ -1,28 +1,39 @@
 #include "Arithmetic.h"
 
-auto Arithmetic::Do(const std::string& expression) -> int {
+auto Arithmetic::Calculate(const std::string& expression) -> double {
     //std::vector<std::string> v {"(","(","1","+","2",")","*","(","3","*","4",")",")"};
     //std::vector<std::string> v {"(", "1", "+", "(", "(", "2", "+", "3", ")", "*", "(","4", "*", "5",")", ")", ")"};
-    std::vector<std::string> v {"(", "5", "*", "(", "4", "*", "(", "3", "*", "(", "2", "*", "(", "1", "*", "9", ")", "/", "8", "-", "7", ")", "+", "6", ")", ")", ")"};
-    Calculate(v, 0, v.size());
+    //std::vector<std::string> v {"(", "5", "*", "(", "4", "*", "(", "3", "*", "(", "2", "*", "(", "1", "*", "9", ")", "/", "8", "-", "7", ")", "+", "6", ")", ")", ")"};
+    //std::vector<std::string> v {"(","(","(",")","(",")",")",")"};
 
-    return stoi(v[0]);
+    // TODO Tokenize the expression string
+    // TODO return error if first token not "("
+
+    Reduce(v, 0, v.size());
+    auto result = v.size() > 0 ? std::stod(v[0]) : 0;
+    return result;
 }
 
-void Arithmetic::Calculate(std::vector<std::string>& tokens, int start, int end) { // NOLINT(misc-no-recursion)
+void Arithmetic::Reduce(std::vector<std::string>& tokens, int start, int end) { // NOLINT(misc-no-recursion)
     // PEMDAS: P
     // take care of parentheses
     for (int i = start; i < end; i++) {
         if (tokens[i] == ")") {
             for (int j = i-1; j >= start; j--) {
                 if (tokens[j] == "(") {
-                    Arithmetic::Calculate(tokens, j+1, i);
-                    tokens.erase(tokens.begin()+j+2);
-                    tokens.erase( tokens.begin()+j);
-                    end -= i - j;
-                    i = j;
+                    // remove the matching parens from the vector
+                    tokens.erase(tokens.begin()+i);
+                    tokens.erase(tokens.begin()+j);
+
+                    // Handle what was between the parens
+                    Arithmetic::Reduce(tokens, j, i-1);
+
+                    // probably more efficient way of doing this, but this is foolproof...
+                    end = static_cast<int>(tokens.size());
+                    i = start;
                     break;
                 }
+                // TODO return error -- didn't find matching open paren
             }
         }
     }
@@ -33,8 +44,8 @@ void Arithmetic::Calculate(std::vector<std::string>& tokens, int start, int end)
         if (tokens[i] == "*" || tokens[i] == "/") {
             if (tokens[i] == "*") {
                 // get operands to left and right
-                auto left = stoi(tokens[i-1]);
-                auto right = stoi(tokens[i+1]);
+                auto left = std::stod(tokens[i-1]);
+                auto right = std::stod(tokens[i+1]);
 
                 // do *
                 auto result = left * right;
@@ -46,8 +57,8 @@ void Arithmetic::Calculate(std::vector<std::string>& tokens, int start, int end)
                 i -= 1;
             } else {
                 // get operands to left and right
-                auto left = stoi(tokens[i-1]);
-                auto right = stoi(tokens[i+1]);
+                auto left = std::stod(tokens[i-1]);
+                auto right = std::stod(tokens[i+1]);
 
                 // do /
                 auto result = left / right;
@@ -67,8 +78,8 @@ void Arithmetic::Calculate(std::vector<std::string>& tokens, int start, int end)
         if (tokens[i] == "+" || tokens[i] == "-") {
             if (tokens[i] == "+") {
                 // get operands to left and right
-                auto left = stoi(tokens[i-1]);
-                auto right = stoi(tokens[i+1]);
+                auto left = std::stod(tokens[i-1]);
+                auto right = std::stod(tokens[i+1]);
 
                 // do +
                 auto result = left + right;
@@ -80,8 +91,8 @@ void Arithmetic::Calculate(std::vector<std::string>& tokens, int start, int end)
                 i -= 1;
             } else {
                 // get operands to left and right
-                auto left = stoi(tokens[i-1]);
-                auto right = stoi(tokens[i+1]);
+                auto left = std::stod(tokens[i-1]);
+                auto right = std::stod(tokens[i+1]);
 
                 // do -
                 auto result = left - right;
