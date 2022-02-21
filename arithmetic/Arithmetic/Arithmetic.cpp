@@ -26,20 +26,20 @@ void Arithmetic::CheckExpressionValidity(const std::string& expression) {
     return expressionTokens;
 }
 
-void Arithmetic::Reduce(std::vector<std::string>& tokens, size_t start, size_t end) { // NOLINT(misc-no-recursion)
-    // PEMDAS
+// TODO should change this to pass a sub-vector instead (maybe slightly less performant, but much cleaner)
+void Arithmetic::Reduce(std::vector<std::string>& tokens, size_t start, size_t end) {   // NOLINT(misc-no-recursion)
     HandleParentheses(tokens, start, end);
     HandleMultiplyAndDivide(tokens, start, end);
     HandleAddAndSubtract(tokens, start, end);
 }
 
-// TODO passing around end as a reference is bad -- side effects, and state/context! Better if we passed sub-vectors (then we wouldn't need to pass start & end!)
-void Arithmetic::HandleParentheses(std::vector<std::string> &tokens, size_t start, size_t &end) { // NOLINT(misc-no-recursion)
+// TODO should change this to pass a sub-vector instead (maybe slightly less performant, but much cleaner)
+void Arithmetic::HandleParentheses(std::vector<std::string> &tokens, size_t start, size_t &end) {   // NOLINT(misc-no-recursion)
     for (auto i = start; i < end; i++) {
         if (tokens[i] == ")") {
-            // TODO could maybe be extracted as a "handle matching open paren" function (or maybe just functions to find i & j???)
             for (int j = i-1; j >= start; j--) {
                 if (tokens[j] == "(") {
+                    // TODO take care of these "sections" after sub-vector change
                     // remove the matching parens from the vector
                     tokens.erase(tokens.begin()+i);
                     tokens.erase(tokens.begin()+j);
@@ -59,6 +59,7 @@ void Arithmetic::HandleParentheses(std::vector<std::string> &tokens, size_t star
     }
 }
 
+// TODO should change this to pass a sub-vector instead (maybe slightly less performant, but much cleaner)
 void Arithmetic::HandleMultiplyAndDivide(std::vector<std::string> &tokens, size_t start, size_t &end) {
     for (auto i = start; i < end; i++) {
         if (tokens[i] == "*" || tokens[i] == "/") {
@@ -71,7 +72,9 @@ void Arithmetic::HandleMultiplyAndDivide(std::vector<std::string> &tokens, size_
     }
 }
 
+// TODO should change this to pass a sub-vector instead (maybe slightly less performant, but much cleaner)
 void Arithmetic::DoMathAndReduceToAnswer(std::vector<std::string> &tokens, size_t &end, size_t &i, const std::function<double (double, double)>& math) {
+    // TODO take care of these "sections" after sub-vector change
     // get operands to left and right
     auto left = std::stod(tokens[i-1]);
     auto right = std::stod(tokens[i+1]);
@@ -86,6 +89,7 @@ void Arithmetic::DoMathAndReduceToAnswer(std::vector<std::string> &tokens, size_
     i -= 1;
 }
 
+// TODO should change this to pass a sub-vector instead (maybe slightly less performant, but much cleaner)
 void Arithmetic::HandleAddAndSubtract(std::vector<std::string> &tokens, size_t start, size_t &end) {
     for (auto i = start; i < end; i++) {
         if (tokens[i] == "+" || tokens[i] == "-") {
