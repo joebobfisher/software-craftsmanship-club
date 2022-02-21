@@ -1,0 +1,10 @@
+cmake_minimum_required(VERSION 3.16)
+project(tiny-maze)
+
+set(CMAKE_CXX_STANDARD 11)
+
+include_directories(Arithmetic)
+
+set(CLASS_FILES)
+
+add_executable(tiny-maze main.cpp ${CLASS_FILES})
