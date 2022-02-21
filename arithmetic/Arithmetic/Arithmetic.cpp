@@ -71,7 +71,7 @@ void Arithmetic::HandleMultiplyAndDivide(std::vector<std::string> &tokens, size_
     }
 }
 
-void Arithmetic::DoMathAndReduceToAnswer(std::vector<std::string> &tokens, size_t &end, size_t &i, std::function<double (double, double)> math) {
+void Arithmetic::DoMathAndReduceToAnswer(std::vector<std::string> &tokens, size_t &end, size_t &i, const std::function<double (double, double)>& math) {
     // get operands to left and right
     auto left = std::stod(tokens[i-1]);
     auto right = std::stod(tokens[i+1]);

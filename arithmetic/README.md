@@ -4,7 +4,36 @@ Kata: [Arithmetics Kata on Katalyst](https://katalyst.codurance.com/arithmetics)
 
 _Clean Code_ Chapter 4: Comments
 --------------------------------
-_(Notes go here.)_
+* Comments do not make up for bad code
+* Explain yourself in code
+* Good comments
+  * Legal comments
+  * Informative comments
+  * Explanation of intent
+  * Clarification
+  * Warning of consequences
+  * TODO comments
+  * Amplification
+  * Javadocs in public APIs
+* Bad comments
+  * Mumbling
+  * Redundant comments
+  * Misleading comments
+  * Mandated comments
+  * Journal comments
+  * Noise comments
+  * Scary noise
+  * Don't use a comment when you can use a function or a variable
+  * Position markers
+  * Closing brace comments
+  * Attributions and bylines
+  * Commented-out code
+  * HTML comments
+  * Nonlocal information
+  * Too much information
+  * Inobvious connection
+  * Function headers
+  * Javadocs in nonpublic code
 
 ### Don't forget what you've already learned!
 * [_Clean Code_ Chapter 3: "Functions"](../alphabet-cipher/README.md)
