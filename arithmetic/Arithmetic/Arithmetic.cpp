@@ -52,6 +52,8 @@ void Arithmetic::HandleParentheses(std::vector<std::string> &tokens, size_t star
                     i = start;
                     break;
                 }
+
+                throw std::invalid_argument("Unmatched parentheses in expression");
             }
         }
     }
