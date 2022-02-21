@@ -1,21 +1,26 @@
 #include "Arithmetic.h"
+#include <sstream>
 
-auto Arithmetic::Calculate(const std::string& expression) -> double {
-    // TODO Tokenize the expression string
-    std::vector<std::string> tokenizedExpression = Tokenize(expression);
-//    tokenizedExpression = {"(","(","1","+","2",")","*","(","3","*","4",")",")"};
-//    tokenizedExpression = {"(", "1", "+", "(", "(", "2", "+", "3", ")", "*", "(","4", "*", "5",")", ")", ")"};
-//    tokenizedExpression = {"(", "5", "*", "(", "4", "*", "(", "3", "*", "(", "2", "*", "(", "1", "*", "9", ")", "/", "8", "-", "7", ")", "+", "6", ")", ")", ")"};
-//    tokenizedExpression = {"(","(","(",")","(",")",")",")"};
+auto Arithmetic::Calculate(const std::string expression) -> double {    // NOLINT(performance-unnecessary-value-param)
+    std::vector<std::string> tokenizedExpression = TokenizeExpression(expression);
 
     // TODO return error if first token not "("
 
+
     Reduce(tokenizedExpression, 0, tokenizedExpression.size());
-    return !tokenizedExpression.empty() ? std::stod(tokenizedExpression[0]) : 0;
+    return GetResult(tokenizedExpression);
 }
 
-std::vector<std::string> Arithmetic::Tokenize(const std::string &basicString) {
-    return {};
+ auto Arithmetic::TokenizeExpression(const std::string& expression) -> std::vector<std::string> {
+    std::vector<std::string> expressionTokens;
+    std::stringstream expressionStream(expression);
+    std::string token;
+
+    while (expressionStream >> token) {
+        expressionTokens.push_back(token);
+    }
+
+    return expressionTokens;
 }
 
 void Arithmetic::Reduce(std::vector<std::string>& tokens, size_t start, size_t end) { // NOLINT(misc-no-recursion)
@@ -87,4 +92,8 @@ void Arithmetic::HandleAddAndSubtract(std::vector<std::string> &tokens, size_t s
             }
         }
     }
+}
+
+auto Arithmetic::GetResult(std::vector<std::string> tokenVector) -> double {
+    return !tokenVector.empty() ? std::stod(tokenVector[0]) : 0;
 }
