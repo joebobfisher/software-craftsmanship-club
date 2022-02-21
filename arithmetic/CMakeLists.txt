@@ -18,6 +18,3 @@ set(CLASS_FILES
         Arithmetic/Arithmetic.cpp)
 
 add_executable(arithmetic main.cpp ${CLASS_FILES})
-add_library(arithmetic_lib ${CLASS_FILES})
-
-add_subdirectory(google_tests)
