@@ -2,13 +2,16 @@
 #include <sstream>
 
 auto Arithmetic::Calculate(const std::string expression) -> double {    // NOLINT(performance-unnecessary-value-param)
+    CheckExpressionValidity(expression);
     std::vector<std::string> tokenizedExpression = TokenizeExpression(expression);
-
-    // TODO return error if first token not "("
-
-
     Reduce(tokenizedExpression, 0, tokenizedExpression.size());
     return GetResult(tokenizedExpression);
+}
+
+void Arithmetic::CheckExpressionValidity(const std::string& expression) {
+    if (expression.empty() || expression.at(0) != '(') {
+        throw std::invalid_argument("Expression must be surrounded by parentheses");
+    }
 }
 
  auto Arithmetic::TokenizeExpression(const std::string& expression) -> std::vector<std::string> {
@@ -49,7 +52,8 @@ void Arithmetic::HandleParentheses(std::vector<std::string> &tokens, size_t star
                     i = start;
                     break;
                 }
-                // TODO return error -- didn't find matching open paren
+
+                throw std::invalid_argument("Unmatched parentheses in expression");
             }
         }
     }
