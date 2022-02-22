@@ -54,32 +54,39 @@ The goal is the get to the end of the maze. A solved maze will have a `x` in the
   [ 1  x  1 ]
   [ 1  x  x ] ]
 ```
+### Constraints
+Here are some further constraints you can count on:
+* The maze will always be solvable
+* `S` will always be at the top left (`[0][0]`)
+* `E` will always be at the bottom right (`[<size-of-array>][<size-of-array>]`)
+
+### Examples
 Here is a more complex example:
 ```
-[ [ 0  0  0  0  0 ]
+[ [ S  0  0  0  0 ]
   [ 1  1  1  1  0 ]
-  [ E  0  0  1  0 ]
-  [ 1  1  0  1  0 ]
-  [ 0  0  0  0  0 ]
+  [ 0  0  0  1  0 ]
+  [ 0  1  0  1  0 ]
+  [ 0  1  0  0  0 ]
   [ 0  1  1  1  1 ]
   [ 0  1  0  0  0 ]
   [ 0  1  1  1  1 ]
   [ 0  0  0  0  1 ]
   [ 0  1  0  1  1 ]
-  [ 1  1  S  0  0 ] ]
+  [ 1  1  0  0  E ] ]
 ```
-Note that `S` and `E` don't have to show up on corners, and not all `0`s are reachable (or even part of the solution):
+Note that not all `0`s are reachable (or even part of the solution):
 ```
-[ [ 0  0  0  0  0 ]
-  [ 1  1  1  1  0 ]
-  [ x  x  x  1  0 ]
-  [ 1  1  x  1  0 ]
-  [ x  x  x  0  0 ]
+[ [ x  x  x  x  x ]
+  [ 1  1  1  1  x ]
+  [ x  x  x  1  x ]
+  [ x  1  x  1  x ]
+  [ x  1  x  x  x ]
   [ x  1  1  1  1 ]
   [ x  1  0  0  0 ]
   [ x  1  1  1  1 ]
   [ x  x  x  0  1 ]
   [ 0  1  x  1  1 ]
-  [ 1  1  x  0  0 ] ]
+  [ 1  1  x  x  x ] ]
 ```
-(Though you _can_ assume that there is a solution. If you're bored and want bonus points, feel free to return false/non-zero return value/etc. to handle the "no solution" case!)
+
