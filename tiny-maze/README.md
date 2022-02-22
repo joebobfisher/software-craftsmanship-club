@@ -43,7 +43,6 @@ A maze is represented by a matrix:
   [ 1  0  1 ]
   [ 1  0  E ] ]
 ```
-
 * `S` : start of the maze
 * `E` : end of the maze
 * `1` : This is a wall that you cannot pass through
@@ -55,3 +54,32 @@ The goal is the get to the end of the maze. A solved maze will have a `x` in the
   [ 1  x  1 ]
   [ 1  x  x ] ]
 ```
+Here is a more complex example:
+```
+[ [ 0  0  0  0  0 ]
+  [ 1  1  1  1  0 ]
+  [ E  0  0  1  0 ]
+  [ 1  1  0  1  0 ]
+  [ 0  0  0  0  0 ]
+  [ 0  1  1  1  1 ]
+  [ 0  1  0  0  0 ]
+  [ 0  1  1  1  1 ]
+  [ 0  0  0  0  1 ]
+  [ 0  1  0  1  1 ]
+  [ 1  1  S  0  0 ] ]
+```
+Note that `S` and `E` don't have to show up on corners, and not all `0`s are reachable (or even part of the solution):
+```
+[ [ 0  0  0  0  0 ]
+  [ 1  1  1  1  0 ]
+  [ x  x  x  1  0 ]
+  [ 1  1  x  1  0 ]
+  [ x  x  x  0  0 ]
+  [ x  1  1  1  1 ]
+  [ x  1  0  0  0 ]
+  [ x  1  1  1  1 ]
+  [ x  x  x  0  1 ]
+  [ 0  1  x  1  1 ]
+  [ 1  1  x  0  0 ] ]
+```
+(Though you _can_ assume that there is a solution. If you're bored and want bonus points, feel free to return false/non-zero return value/etc. to handle the "no solution" case!)
