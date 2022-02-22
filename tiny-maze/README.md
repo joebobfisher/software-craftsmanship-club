@@ -1,5 +1,5 @@
-DISTek Software Craftsmanship Club 04 - Arithmetics
-===================================================
+DISTek Software Craftsmanship Club 05 - Tiny Maze
+=================================================
 Kata: [tiny-maze on wonderland-clojure-katas](https://github.com/gigasquid/wonderland-clojure-katas/tree/master/tiny-maze)
 
 _Clean Code_ Chapter 5: Formatting
