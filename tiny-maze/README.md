@@ -1,5 +1,5 @@
-DISTek Software Craftsmanship Club 04 - Arithmetics
-===================================================
+DISTek Software Craftsmanship Club 05 - Tiny Maze
+=================================================
 Kata: [tiny-maze on wonderland-clojure-katas](https://github.com/gigasquid/wonderland-clojure-katas/tree/master/tiny-maze)
 
 _Clean Code_ Chapter 5: Formatting
@@ -43,7 +43,6 @@ A maze is represented by a matrix:
   [ 1  0  1 ]
   [ 1  0  E ] ]
 ```
-
 * `S` : start of the maze
 * `E` : end of the maze
 * `1` : This is a wall that you cannot pass through
@@ -55,3 +54,39 @@ The goal is the get to the end of the maze. A solved maze will have a `x` in the
   [ 1  x  1 ]
   [ 1  x  x ] ]
 ```
+### Constraints
+Here are some further constraints you can count on:
+* The maze will always be solvable
+* `S` will always be at the top left (`[0][0]`)
+* `E` will always be at the bottom right (`[<size-of-array>][<size-of-array>]`)
+
+### Examples
+Here is a more complex example:
+```
+[ [ S  0  0  0  0 ]
+  [ 1  1  1  1  0 ]
+  [ 0  0  0  1  0 ]
+  [ 0  1  0  1  0 ]
+  [ 0  1  0  0  0 ]
+  [ 0  1  1  1  1 ]
+  [ 0  1  0  0  0 ]
+  [ 0  1  1  1  1 ]
+  [ 0  0  0  0  1 ]
+  [ 0  1  0  1  1 ]
+  [ 1  1  0  0  E ] ]
+```
+Note that not all `0`s are reachable (or even part of the solution):
+```
+[ [ x  x  x  x  x ]
+  [ 1  1  1  1  x ]
+  [ x  x  x  1  x ]
+  [ x  1  x  1  x ]
+  [ x  1  x  x  x ]
+  [ x  1  1  1  1 ]
+  [ x  1  0  0  0 ]
+  [ x  1  1  1  1 ]
+  [ x  x  x  0  1 ]
+  [ 0  1  x  1  1 ]
+  [ 1  1  x  x  x ] ]
+```
+
