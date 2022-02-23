@@ -21,7 +21,12 @@
  }
 
 TEST_F(ArithmeticTest, CalculateThrowsErrorIfEmptyString) {
-    ASSERT_THROW(target.Calculate(""), std::invalid_argument);
+    try {
+        target.Calculate("");
+    }
+    catch (std::invalid_argument &e) {
+        ASSERT_STREQ(e.what(), "Expression must be surrounded by parentheses");
+    }
 }
 
 TEST_F(ArithmeticTest, CalculateReturnsZeroOnSimpleParentheses) {
@@ -53,7 +58,12 @@ TEST_F(ArithmeticTest, CalculateReturnsZeroOnComplexParentheses) {
 }
 
 TEST_F(ArithmeticTest, ThrowsErrorIfNoOutsideParentheses) {
-    ASSERT_THROW(target.Calculate("3 + ( 2 * 1 )"), std::invalid_argument);
+    try {
+        target.Calculate("3 + ( 2 * 1 )");
+    }
+    catch (std::invalid_argument &e) {
+        ASSERT_STREQ(e.what(), "Expression must be surrounded by parentheses");
+    }
 }
 
 #pragma clang diagnostic pop
