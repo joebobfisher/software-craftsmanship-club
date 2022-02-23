@@ -7,9 +7,6 @@
 #
 # stop:
 #   docker stop clion_remote_env
-# 
-# ssh credentials:
-#   luser@password 
 
 FROM ubuntu:latest
 

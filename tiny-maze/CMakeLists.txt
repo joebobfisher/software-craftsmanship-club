@@ -5,6 +5,11 @@ set(CMAKE_CXX_STANDARD 11)
 
 include_directories(Arithmetic)
 
-set(CLASS_FILES)
+set(CLASS_FILES
+        Maze/Maze.cpp
+        Maze/Maze.h)
 
 add_executable(tiny-maze main.cpp ${CLASS_FILES})
+add_library(tiny-maze_lib ${CLASS_FILES})
+
+add_subdirectory(google_tests)
