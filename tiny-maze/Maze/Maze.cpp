@@ -13,16 +13,15 @@ auto Maze::GetMazeVector() -> std::vector<std::vector<char>> {
     return GivenMaze;
 }
 
-auto Maze::GetMarkedMazeVector() -> std::vector<std::vector<char>> {
-    return MarkedMaze;
-}
-
 auto Maze::GetVisitedList() -> std::vector<std::vector<bool>> {
     return VisitedNodes;
 }
 
+auto Maze::GetRouteStack() -> std::vector<std::pair<int, int>> {
+    return RouteStack;
+}
+
 auto Maze::GetMazeWithRoute() -> std::vector<std::vector<char>> {
-    // find the route, then mark it, then return it
     FindRoute();
     MarkRoute();
     return MarkedMaze;
@@ -39,16 +38,20 @@ void Maze::InitializeRouteStack() { RouteStack = {}; }
 
 void Maze::InitializeVisitedNodes() {
     VisitedNodes = {};
-    for (auto & i : GivenMaze) {
+
+    // TODO(joe): hopefully this gets cleaner when we don't use a vector (see constructor TODO)
+    for (auto & col : GivenMaze) {
         std::vector<bool> column;
-        for (int j = 0; j < i.size(); j++) {
-            column.push_back(false);
+        for (int j = 0; j < col.size(); j++) {
+            column.push_back(false); // NOLINT not pre-allocating is fine
         }
         VisitedNodes.push_back(column);
     }
 }
 
 auto Maze::FindRouteDfs(int x, int y) -> bool { // NOLINT(misc-no-recursion, readability-identifier-length)
+    // TODO(joe): split up this function
+
     // go back if this isn't a valid node or if we've already been here
     if (!IsValidNode(x, y) || VisitedNodes[x][y]) {
         return false;
@@ -79,6 +82,20 @@ auto Maze::IsValidNode(int x, int y) -> bool { // NOLINT(readability-identifier-
 }
 
 void Maze::MarkRoute() {
-    // returns original maze with "x"s on nodes that were traversed to get to the end
-    // returns all visited nodes with "x"s if no route exists (i.e. routestack is empty)
+    // TODO(joe): split these up into separate functions
+    if (!RouteStack.empty()) {
+        while (!RouteStack.empty()) {
+            auto coord = RouteStack.back();
+            MarkedMaze[coord.first][coord.second] = 'x';
+            RouteStack.pop_back();
+        }
+    } else {
+        for (int i = 0; i < VisitedNodes.size(); i++) {
+            for (int j = 0; j < VisitedNodes[i].size(); j++) {
+                if (VisitedNodes[i][j]) {
+                    MarkedMaze[i][j] = 'x';
+                }
+            }
+        }
+    }
 }

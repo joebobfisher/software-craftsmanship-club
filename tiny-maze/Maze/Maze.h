@@ -9,8 +9,8 @@ public:
     explicit Maze(std::vector<std::vector<char>>  maze);
     auto GetMazeWithRoute() -> std::vector<std::vector<char>>;
     auto GetMazeVector() -> std::vector<std::vector<char>>;
-    auto GetMarkedMazeVector() -> std::vector<std::vector<char>>;
     auto GetVisitedList() -> std::vector<std::vector<bool>>;
+    auto GetRouteStack() -> std::vector<std::pair<int, int>>;
     void FindRoute();
     void MarkRoute();
     auto FindRouteDfs(int x, int y) -> bool;
