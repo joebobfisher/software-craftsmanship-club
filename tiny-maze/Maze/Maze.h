@@ -9,17 +9,21 @@ public:
     explicit Maze(std::vector<std::vector<char>>  maze);
     auto GetMazeWithRoute() -> std::vector<std::vector<char>>;
     auto GetMazeVector() -> std::vector<std::vector<char>>;
-    auto GetMazeMap() -> std::map<std::pair<int, int>, std::vector<std::pair<int, int>>>;
+    auto GetMarkedMazeVector() -> std::vector<std::vector<char>>;
+    auto GetVisitedList() -> std::vector<std::vector<bool>>;
+    void FindRoute();
+    void MarkRoute();
+    auto FindRouteDfs(int x, int y) -> bool;
+    auto IsValidNode(int x, int y) -> bool;
 
 private:
     std::vector<std::vector<char>> GivenMaze;
-    std::map<std::pair<int, int>, std::vector<std::pair<int, int>>> MazeAdjacencyMap;
     std::vector<std::vector<char>> MarkedMaze;
+    std::vector<std::vector<bool>> VisitedNodes;
+    std::vector<std::pair<int, int>> RouteStack;
 
-    static auto MakeAdjacencyMap(const std::vector<std::vector<char>>& maze) -> std::map<std::pair<int, int>, std::vector<std::pair<int, int>>>;
-    void FindRoute();
-    void MarkMazeWithRoute();
+    void InitializeVisitedNodes();
+    void InitializeRouteStack();
 };
-
 
 #endif //TINY_MAZE_MAZE_H

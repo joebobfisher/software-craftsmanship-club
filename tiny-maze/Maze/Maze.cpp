@@ -5,74 +5,80 @@
 // find a path
 // go over the path and mark each spot with an "x"
 
-Maze::Maze(std::vector<std::vector<char>> maze) : GivenMaze(std::move(maze)) {
-    MazeAdjacencyMap = MakeAdjacencyMap(GivenMaze);
+Maze::Maze(std::vector<std::vector<char>> maze) : GivenMaze(std::move(maze)), MarkedMaze(GivenMaze) {
+    // TODO(joe): pass in a C array from main() instead of a vector of vectors (no need to resize once in this object)!
 }
 
 auto Maze::GetMazeVector() -> std::vector<std::vector<char>> {
     return GivenMaze;
 }
 
-auto Maze::GetMazeMap() -> std::map<std::pair<int, int>, std::vector<std::pair<int, int>>> {
-    return MazeAdjacencyMap;
+auto Maze::GetMarkedMazeVector() -> std::vector<std::vector<char>> {
+    return MarkedMaze;
 }
 
-auto Maze::MakeAdjacencyMap(const std::vector<std::vector<char>>& maze) -> std::map<std::pair<int, int>, std::vector<std::pair<int, int>>> {
-    std::map<std::pair<int, int>, std::vector<std::pair<int, int>>> adjacencyMap;
-
-    for (int i = 0; i < maze.size(); i++) {
-        for (int j = 0; j < maze[i].size(); j++) {
-            auto key = std::make_pair(i, j);
-            std::vector<std::pair<int, int>> adjacents;
-
-            if (maze[i][j] == '1') {
-                continue;
-            }
-
-            // add any adjacent spots to the adjacents vector
-            if (j-1 >= 0 && (maze[i][j-1] == '0' || maze[i][j-1] == 'S' || maze[i][j-1] == 'E')) {
-                adjacents.emplace_back(std::make_pair(i, j-1));
-            }
-            if (j+1 < maze[i].size() && (maze[i][j+1] == '0' || maze[i][j+1] == 'S' || maze[i][j+1] == 'E')) {
-                adjacents.emplace_back(std::make_pair(i, j+1));
-            }
-            if (i-1 >= 0 && (maze[i-1][j] == '0' || maze[i-1][j] == 'S' || maze[i-1][j] == 'E')) {
-                adjacents.emplace_back(std::make_pair(i-1, j));
-            }
-            if (i+1 < maze.size() && (maze[i+1][j] == '0' || maze[i+1][j] == 'S' || maze[i+1][j] == 'E')) {
-                adjacents.emplace_back(std::make_pair(i+1, j));
-            }
-
-            adjacencyMap.insert({key, adjacents});
-        }
-    }
-
-    return adjacencyMap;
+auto Maze::GetVisitedList() -> std::vector<std::vector<bool>> {
+    return VisitedNodes;
 }
 
 auto Maze::GetMazeWithRoute() -> std::vector<std::vector<char>> {
     // find the route, then mark it, then return it
     FindRoute();
-    MarkMazeWithRoute();
+    MarkRoute();
     return MarkedMaze;
 }
 
 void Maze::FindRoute() {
-    // Find a route using DFS
-    // initialize visited list
-    // start of recursive part: start at 0,0 -> node n
-    // mark visited[n] as true
-    // push node onto route stack
-    // if m == end of maze (char == 'E') then return (route stack == path)
-    // foreach node m in the adjacency list for node n
-        // if visited[m] is false
-            // recurse to m
-    // if no unvisited adjacent nodes (i.e. we got here)
-        // pop node off route stack
-    // return
+    InitializeVisitedNodes();
+    InitializeRouteStack();
+
+    FindRouteDfs(0, 0);
 }
 
-void Maze::MarkMazeWithRoute() {
+void Maze::InitializeRouteStack() { RouteStack = {}; }
+
+void Maze::InitializeVisitedNodes() {
+    VisitedNodes = {};
+    for (auto & i : GivenMaze) {
+        std::vector<bool> column;
+        for (int j = 0; j < i.size(); j++) {
+            column.push_back(false);
+        }
+        VisitedNodes.push_back(column);
+    }
+}
+
+auto Maze::FindRouteDfs(int x, int y) -> bool { // NOLINT(misc-no-recursion, readability-identifier-length)
+    // go back if this isn't a valid node or if we've already been here
+    if (!IsValidNode(x, y) || VisitedNodes[x][y]) {
+        return false;
+    }
+
+    VisitedNodes[x][y] = true;
+    RouteStack.emplace_back(x, y);
+
+    if (MarkedMaze[x][y] == 'E') {
+        return true;
+    }
+
+    const std::vector<std::pair<int, int>> possibleMoves = {{x, y+1}, {x+1, y}, {x-1, y}, {x, y-1}};
+    for (std::pair<int, int> coord : possibleMoves) {
+        if (FindRouteDfs(coord.first, coord.second)) {
+            return true;
+        }
+    }
+
+    // This node that we're currently on is a dead-end -- go back
+    RouteStack.pop_back();
+
+    return false;
+}
+
+auto Maze::IsValidNode(int x, int y) -> bool { // NOLINT(readability-identifier-length)
+    return x >= 0 && x < MarkedMaze.size() && y >= 0 && y < MarkedMaze[x].size() && MarkedMaze[x][y] != '1';
+}
+
+void Maze::MarkRoute() {
     // returns original maze with "x"s on nodes that were traversed to get to the end
-    // returns all visited nodes with "x"s if no route exists
+    // returns all visited nodes with "x"s if no route exists (i.e. routestack is empty)
 }

@@ -27,18 +27,35 @@ TEST_F(MazeTest, ConstructorCopiesGivenMaze) {
     EXPECT_THAT(actual, testing::ElementsAreArray(givenMaze));
 }
 
-TEST_F(MazeTest, ConstructorInitializesAdjacencyMap) {
-    std::map<std::pair<int, int>, std::vector<std::pair<int, int>>> expected = {
-            {{0,0}, {{0,1}}},
-            {{0,1}, {{0,0}, {1,1}}},
-            {{1,1}, {{0,1}}}
-    };
+TEST_F(MazeTest, FindRouteSetsVisitedList) {
+    std::vector<std::vector<bool>> expected = { { true, true }, { false, true } };
     Maze target = Maze(givenMaze);
-    auto actual = target.GetMazeMap();
+    target.FindRoute();
+    auto actual = target.GetVisitedList();
     EXPECT_THAT(actual, testing::ElementsAreArray(expected));
 }
 
-TEST_F(MazeTest, FindRouteInitializesVisitedList) {
+TEST_F(MazeTest, FindRouteSetsRouteStackToFoundRoute) {
+    SUCCEED();
+}
+
+TEST_F(MazeTest, FindRouteEmptysRouteStackWhenNoRouteFound) {
+    SUCCEED();
+}
+
+TEST_F(MazeTest, MarkRouteMarksFoundRoute) {
+    SUCCEED();
+}
+
+TEST_F(MazeTest, MarkRouteDoesNotMarkRouteWhenNoRouteFound) {
+    SUCCEED();
+}
+
+TEST_F(MazeTest, GetMazeWithRouteReturnsMazeWithFoundRoute) {
+    SUCCEED();
+}
+
+TEST_F(MazeTest, GetMazeWithRouteReturnsMazeWithAllVisitedMarkedWhenNoRouteFound) {
     SUCCEED();
 }
 
