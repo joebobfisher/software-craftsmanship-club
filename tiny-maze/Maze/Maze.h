@@ -12,11 +12,11 @@ public:
     auto GetMazeMap() -> std::map<std::pair<int, int>, std::vector<std::pair<int, int>>>;
 
 private:
-    std::vector<std::vector<char>> MazeVector;
-    std::map<std::pair<int, int>, std::vector<std::pair<int, int>>> MazeMap;
-    std::vector<std::vector<char>> MarkedMazeVector;
+    std::vector<std::vector<char>> GivenMaze;
+    std::map<std::pair<int, int>, std::vector<std::pair<int, int>>> MazeAdjacencyMap;
+    std::vector<std::vector<char>> MarkedMaze;
 
-    static auto MakeMazeMap(const std::vector<std::vector<char>>& maze) -> std::map<std::pair<int, int>, std::vector<std::pair<int, int>>>;
+    static auto MakeAdjacencyMap(const std::vector<std::vector<char>>& maze) -> std::map<std::pair<int, int>, std::vector<std::pair<int, int>>>;
     void FindRoute();
     void MarkMazeWithRoute();
 };

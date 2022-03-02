@@ -1,23 +1,23 @@
 #include "Maze.h"
 
 // take a 2d char array as maze
-// 0,0 and vector.size(),vector.size() are always "0"
+// 0,0 and vector.size(),vector.size() are always passable
 // find a path
 // go over the path and mark each spot with an "x"
 
-Maze::Maze(std::vector<std::vector<char>> maze) : MazeVector(std::move(maze)) {
-    MazeMap = MakeMazeMap(MazeVector);
+Maze::Maze(std::vector<std::vector<char>> maze) : GivenMaze(std::move(maze)) {
+    MazeAdjacencyMap = MakeAdjacencyMap(GivenMaze);
 }
 
 auto Maze::GetMazeVector() -> std::vector<std::vector<char>> {
-    return MazeVector;
+    return GivenMaze;
 }
 
 auto Maze::GetMazeMap() -> std::map<std::pair<int, int>, std::vector<std::pair<int, int>>> {
-    return MazeMap;
+    return MazeAdjacencyMap;
 }
 
-auto Maze::MakeMazeMap(const std::vector<std::vector<char>>& maze) -> std::map<std::pair<int, int>, std::vector<std::pair<int, int>>> {
+auto Maze::MakeAdjacencyMap(const std::vector<std::vector<char>>& maze) -> std::map<std::pair<int, int>, std::vector<std::pair<int, int>>> {
     std::map<std::pair<int, int>, std::vector<std::pair<int, int>>> adjacencyMap;
 
     for (int i = 0; i < maze.size(); i++) {
@@ -47,18 +47,19 @@ auto Maze::MakeMazeMap(const std::vector<std::vector<char>>& maze) -> std::map<s
         }
     }
 
-
     return adjacencyMap;
 }
 
 auto Maze::GetMazeWithRoute() -> std::vector<std::vector<char>> {
     // find the route, then mark it, then return it
-    return {};
+    FindRoute();
+    MarkMazeWithRoute();
+    return MarkedMaze;
 }
 
 void Maze::FindRoute() {
     // Find a route using DFS
-    // initialize visited
+    // initialize visited list
 }
 
 void Maze::MarkMazeWithRoute() {
