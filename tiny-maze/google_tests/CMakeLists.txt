@@ -1,7 +1,11 @@
 project(google_tests)
 
 add_subdirectory(lib)
-include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
+include_directories(
+        ${gtest_SOURCE_DIR}
+        ${gtest_SOURCE_DIR}/include
+        ${gmock_SOURCE_DIR}
+        ${gmock_SOURCE_DIR}/include)
 
 set(TEST_FILES MazeTests.cpp)
 add_executable(google_tests_run ${TEST_FILES})

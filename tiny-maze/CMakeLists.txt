@@ -3,7 +3,7 @@ project(tiny-maze)
 
 set(CMAKE_CXX_STANDARD 11)
 
-include_directories(Arithmetic)
+include_directories(Maze)
 
 set(CLASS_FILES
         Maze/Maze.cpp
