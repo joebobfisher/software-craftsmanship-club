@@ -60,6 +60,16 @@ auto Maze::GetMazeWithRoute() -> std::vector<std::vector<char>> {
 void Maze::FindRoute() {
     // Find a route using DFS
     // initialize visited list
+    // start of recursive part: start at 0,0 -> node n
+    // mark visited[n] as true
+    // push node onto route stack
+    // if m == end of maze (char == 'E') then return (route stack == path)
+    // foreach node m in the adjacency list for node n
+        // if visited[m] is false
+            // recurse to m
+    // if no unvisited adjacent nodes (i.e. we got here)
+        // pop node off route stack
+    // return
 }
 
 void Maze::MarkMazeWithRoute() {
