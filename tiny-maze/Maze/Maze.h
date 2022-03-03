@@ -12,9 +12,6 @@ public:
     auto GetVisitedList() -> std::vector<std::vector<bool>>;
     auto GetRouteStack() -> std::vector<std::pair<int, int>>;
     void FindRoute();
-    void MarkRoute();
-    auto FindRouteDfs(int x, int y) -> bool;
-    auto IsValidNode(int x, int y) -> bool;
 
 private:
     std::vector<std::vector<char>> GivenMaze;
@@ -24,6 +21,11 @@ private:
 
     void InitializeVisitedNodes();
     void InitializeRouteStack();
+    auto FindRouteDfs(int x, int y) -> bool;    // NOLINT(readability-identifier-length)
+    auto IsValidNode(int x, int y) -> bool;     // NOLINT(readability-identifier-length)
+    void MarkRoute();
+    void MarkRouteFound();
+    void MarkRouteNotFound();
 };
 
 #endif //TINY_MAZE_MAZE_H

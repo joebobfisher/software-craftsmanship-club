@@ -8,7 +8,7 @@
 
 #include "gtest/gtest.h"
 #include "gmock/gmock-matchers.h"
-#include "../Maze/Maze.h"
+#include "Maze.h"
 
 class MazeTest : public ::testing::Test {
 protected:

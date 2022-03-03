@@ -1,10 +1,5 @@
 #include "Maze.h"
 
-// take a 2d char array as maze
-// 0,0 and vector.size(),vector.size() are always passable
-// find a path
-// go over the path and mark each spot with an "x"
-
 Maze::Maze(std::vector<std::vector<char>> maze) : GivenMaze(std::move(maze)), MarkedMaze(GivenMaze) {
     // TODO(joe): pass in a C array from main() instead of a vector of vectors (no need to resize once in this object)!
 }
@@ -82,19 +77,26 @@ auto Maze::IsValidNode(int x, int y) -> bool { // NOLINT(readability-identifier-
 }
 
 void Maze::MarkRoute() {
-    // TODO(joe): split these up into separate functions
     if (!RouteStack.empty()) {
-        while (!RouteStack.empty()) {
-            auto coord = RouteStack.back();
-            MarkedMaze[coord.first][coord.second] = 'x';
-            RouteStack.pop_back();
-        }
+        MarkRouteFound();
     } else {
-        for (int i = 0; i < VisitedNodes.size(); i++) {
-            for (int j = 0; j < VisitedNodes[i].size(); j++) {
-                if (VisitedNodes[i][j]) {
-                    MarkedMaze[i][j] = 'x';
-                }
+        MarkRouteNotFound();
+    }
+}
+
+void Maze::MarkRouteFound() {
+    while (!RouteStack.empty()) {
+        auto coord = RouteStack.back();
+        MarkedMaze[coord.first][coord.second] = 'x';
+        RouteStack.pop_back();
+    }
+}
+
+void Maze::MarkRouteNotFound() {
+    for (int i = 0; i < VisitedNodes.size(); i++) {
+        for (int j = 0; j < VisitedNodes[i].size(); j++) {
+            if (VisitedNodes[i][j]) {
+                MarkedMaze[i][j] = 'x';
             }
         }
     }
