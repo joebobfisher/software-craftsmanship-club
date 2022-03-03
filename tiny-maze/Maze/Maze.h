@@ -7,8 +7,8 @@
 class Maze {
 public:
     explicit Maze(std::vector<std::vector<char>>  maze);
-    auto GetMazeWithRoute() -> std::vector<std::vector<char>>;
-    auto GetMazeVector() -> std::vector<std::vector<char>>;
+    auto SolveMaze() -> std::vector<std::vector<char>>;
+    auto GetOriginalMaze() -> std::vector<std::vector<char>>;
     auto GetVisitedList() -> std::vector<std::vector<bool>>;
     auto GetRouteStack() -> std::vector<std::pair<int, int>>;
     void FindRoute();

@@ -24,14 +24,18 @@ void MazeTest::SetUp() {
 // TODO(joe): add vertical space to each of these tests (setup-run-test)
 TEST_F(MazeTest, ConstructorCopiesGivenMaze) {
     Maze target = Maze(givenMaze);
-    auto actual = target.GetMazeVector();
+
+    auto actual = target.GetOriginalMaze();
+
     EXPECT_THAT(actual, testing::ElementsAreArray(givenMaze));
 }
 
 TEST_F(MazeTest, FindRouteSetsVisitedList) {
     std::vector<std::vector<bool>> expected = { { true, true }, { false, true } };
     Maze target = Maze(givenMaze);
+
     target.FindRoute();
+
     auto actual = target.GetVisitedList();
     EXPECT_THAT(actual, testing::ElementsAreArray(expected));
 }
@@ -39,7 +43,9 @@ TEST_F(MazeTest, FindRouteSetsVisitedList) {
 TEST_F(MazeTest, FindRouteSetsRouteStackToFoundRoute) {
     std::vector<std::pair<int, int>> expected = { { 0, 0 }, { 0, 1 }, { 1, 1 } };
     Maze target = Maze(givenMaze);
+
     target.FindRoute();
+
     auto actual = target.GetRouteStack();
     EXPECT_THAT(actual, testing::ElementsAreArray(expected));
 }
@@ -48,23 +54,29 @@ TEST_F(MazeTest, FindRouteEmptysRouteStackWhenNoRouteFound) {
     std::vector<std::pair<int, int>> expected = {};
     givenMaze = { { 'S', '1' }, { '1', 'E' } };
     Maze target = Maze(givenMaze);
+
     target.FindRoute();
+
     auto actual = target.GetRouteStack();
     EXPECT_THAT(actual, testing::ElementsAreArray(expected));
 }
 
-TEST_F(MazeTest, GetMazeWithRouteReturnsMazeWithFoundRoute) {
+TEST_F(MazeTest, SolveMazeReturnsMazeWithFoundRoute) {
     std::vector<std::vector<char>> expected { { 'x', 'x' }, { '1', 'x' } };
     Maze target = Maze(givenMaze);
-    auto actual = target.GetMazeWithRoute();
+
+    auto actual = target.SolveMaze();
+
     EXPECT_THAT(actual, testing::ElementsAreArray(expected));
 }
 
-TEST_F(MazeTest, GetMazeWithRouteReturnsMazeWithAllVisitedMarkedWhenNoRouteFound) {
+TEST_F(MazeTest, SolveMazeReturnsMazeWithAllVisitedMarkedWhenNoRouteFound) {
     std::vector<std::vector<char>> expected = { { 'x', '1' }, { '1', 'E' } };
     givenMaze = { { 'S', '1' }, { '1', 'E' } };
     Maze target = Maze(givenMaze);
-    auto actual = target.GetMazeWithRoute();
+
+    auto actual = target.SolveMaze();
+
     EXPECT_THAT(actual, testing::ElementsAreArray(expected));
 }
 

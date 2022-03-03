@@ -1,10 +1,8 @@
 #include "Maze.h"
 
-Maze::Maze(std::vector<std::vector<char>> maze) : GivenMaze(std::move(maze)), MarkedMaze(GivenMaze) {
-    // TODO(joe): pass in a C array from main() instead of a vector of vectors (no need to resize once in this object)!
-}
+Maze::Maze(std::vector<std::vector<char>> maze) : GivenMaze(std::move(maze)), MarkedMaze(GivenMaze) {}
 
-auto Maze::GetMazeVector() -> std::vector<std::vector<char>> {
+auto Maze::GetOriginalMaze() -> std::vector<std::vector<char>> {
     return GivenMaze;
 }
 
@@ -16,7 +14,7 @@ auto Maze::GetRouteStack() -> std::vector<std::pair<int, int>> {
     return RouteStack;
 }
 
-auto Maze::GetMazeWithRoute() -> std::vector<std::vector<char>> {
+auto Maze::SolveMaze() -> std::vector<std::vector<char>> {
     FindRoute();
     MarkRoute();
     return MarkedMaze;
@@ -34,7 +32,6 @@ void Maze::InitializeRouteStack() { RouteStack = {}; }
 void Maze::InitializeVisitedNodes() {
     VisitedNodes = {};
 
-    // TODO(joe): hopefully this gets cleaner when we don't use a vector (see constructor TODO)
     for (auto & col : GivenMaze) {
         std::vector<bool> column;
         for (int j = 0; j < col.size(); j++) {
@@ -45,9 +42,6 @@ void Maze::InitializeVisitedNodes() {
 }
 
 auto Maze::FindRouteDfs(int x, int y) -> bool { // NOLINT(misc-no-recursion, readability-identifier-length)
-    // TODO(joe): split up this function
-
-    // go back if this isn't a valid node or if we've already been here
     if (!IsValidNode(x, y) || VisitedNodes[x][y]) {
         return false;
     }
@@ -66,7 +60,6 @@ auto Maze::FindRouteDfs(int x, int y) -> bool { // NOLINT(misc-no-recursion, rea
         }
     }
 
-    // This node that we're currently on is a dead-end -- go back
     RouteStack.pop_back();
 
     return false;
