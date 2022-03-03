@@ -2,23 +2,23 @@
 #define TINY_MAZE_ROUTEFINDER_H
 
 
-#include <vector>
+#include "Maze.h"
 
 class RouteFinder {
 public:
-    explicit RouteFinder(std::vector<std::vector<char>>& maze);
+    explicit RouteFinder(Maze& maze);
     void FindRoute();
-    void InitializeVisitedNodes();
-    void InitializeRouteStack();
+//    void InitializeVisitedNodes();
+//    void InitializeRouteStack();
     auto FindRouteDfs(int x, int y) -> bool;    // NOLINT(readability-identifier-length)
-    auto IsValidNode(int x, int y) -> bool;     // NOLINT(readability-identifier-length)
-    auto GetVisitedList() -> std::vector<std::vector<bool>>;
-    auto GetRouteStack() -> std::vector<std::pair<int, int>>;
+//    auto IsValidNode(int x, int y) -> bool;     // NOLINT(readability-identifier-length)
+//    auto GetVisitedList() -> std::vector<std::vector<bool>>;
+//    auto GetRouteStack() -> std::vector<std::pair<int, int>>;
 
 private:
-    std::vector<std::vector<char>> Maze;
-    std::vector<std::vector<bool>> VisitedNodes;
-    std::vector<std::pair<int, int>> RouteStack;
+    Maze& MazeToSearch;
+//    std::vector<std::vector<bool>> VisitedNodes;
+//    std::vector<std::pair<int, int>> RouteStack;
 };
 
 
