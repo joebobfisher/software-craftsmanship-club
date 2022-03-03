@@ -7,7 +7,9 @@ include_directories(
         ${gmock_SOURCE_DIR}
         ${gmock_SOURCE_DIR}/include)
 
-set(TEST_FILES MazeTests.cpp)
+set(TEST_FILES
+        MazeTests.cpp
+        RouteFinderTests.cpp)
 add_executable(google_tests_run ${TEST_FILES})
 
 target_link_libraries(google_tests_run gtest gtest_main)

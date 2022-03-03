@@ -21,7 +21,8 @@ auto main() -> int {
     printMaze(myMaze);
     std::cout << std::endl << std::endl;
 
-    Maze maze(myMaze);
+    RouteFinder routeFinder(myMaze);
+    Maze maze(myMaze, routeFinder);
     std::vector<std::vector<char>> solvedMaze = maze.SolveMaze();
 
     printMaze(solvedMaze);
