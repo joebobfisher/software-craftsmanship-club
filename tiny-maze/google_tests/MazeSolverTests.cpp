@@ -8,9 +8,9 @@
 
 #include "gtest/gtest.h"
 #include "gmock/gmock-matchers.h"
-#include "Maze.h"
+#include "MazeSolver.h"
 
-class MazeTest : public ::testing::Test {
+class MazeSolverTest : public ::testing::Test {
 protected:
     void SetUp() override;
 
@@ -20,34 +20,34 @@ protected:
     RouteMarker routeMarker;
 };
 
-void MazeTest::SetUp() {
+void MazeSolverTest::SetUp() {
      givenMaze = { { 'S', '0' }, { '1', 'E' } };
 }
 
-TEST_F(MazeTest, ConstructorCopiesGivenMaze) {
+TEST_F(MazeSolverTest, ConstructorCopiesGivenMaze) {
     RouteFinder routeFinder(givenMaze);
-    Maze target = Maze(givenMaze, routeFinder, routeMarker);
+    MazeSolver target = MazeSolver(givenMaze, routeFinder, routeMarker);
 
     auto actual = target.GetOriginalMaze();
 
     EXPECT_THAT(actual, testing::ElementsAreArray(givenMaze));
 }
 
-TEST_F(MazeTest, SolveMazeReturnsMazeWithFoundRoute) {
+TEST_F(MazeSolverTest, SolveMazeReturnsMazeWithFoundRoute) {
     std::vector<std::vector<char>> expected { { 'x', 'x' }, { '1', 'x' } };
     RouteFinder routeFinder(givenMaze);
-    Maze target = Maze(givenMaze, routeFinder, routeMarker);
+    MazeSolver target = MazeSolver(givenMaze, routeFinder, routeMarker);
 
     auto actual = target.SolveMaze();
 
     EXPECT_THAT(actual, testing::ElementsAreArray(expected));
 }
 
-TEST_F(MazeTest, SolveMazeReturnsMazeWithAllVisitedMarkedWhenNoRouteFound) {
+TEST_F(MazeSolverTest, SolveMazeReturnsMazeWithAllVisitedMarkedWhenNoRouteFound) {
     std::vector<std::vector<char>> expected = { { 'x', '1' }, { '1', 'E' } };
     givenMaze = { { 'S', '1' }, { '1', 'E' } };
     RouteFinder routeFinder(givenMaze);
-    Maze target = Maze(givenMaze, routeFinder, routeMarker);
+    MazeSolver target = MazeSolver(givenMaze, routeFinder, routeMarker);
 
     auto actual = target.SolveMaze();
 

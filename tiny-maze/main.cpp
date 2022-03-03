@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Maze.h"
+#include "MazeSolver.h"
 
 void printMaze(std::vector<std::vector<char>> maze);
 
@@ -21,10 +21,10 @@ auto main() -> int {
     printMaze(myMaze);
     std::cout << std::endl << std::endl;
 
-    // TODO create a Maze constructor override that creates its own RouteFinder and RouteMarker so main() doesn't have to!
+    // TODO create a MazeSolver constructor override that creates its own RouteFinder and RouteMarker so main() doesn't have to!
     RouteFinder routeFinder(myMaze);
     RouteMarker routeMarker;
-    Maze maze(myMaze, routeFinder, routeMarker);
+    MazeSolver maze(myMaze, routeFinder, routeMarker);
     std::vector<std::vector<char>> solvedMaze = maze.SolveMaze();
 
     printMaze(solvedMaze);
