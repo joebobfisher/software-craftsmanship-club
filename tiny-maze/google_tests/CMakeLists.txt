@@ -9,7 +9,8 @@ include_directories(
 
 set(TEST_FILES
         MazeTests.cpp
-        RouteFinderTests.cpp)
+        RouteFinderTests.cpp
+        RouteMarkerTests.cpp)
 add_executable(google_tests_run ${TEST_FILES})
 
 target_link_libraries(google_tests_run gtest gtest_main)

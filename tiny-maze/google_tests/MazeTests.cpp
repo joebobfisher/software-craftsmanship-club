@@ -15,16 +15,18 @@ protected:
     void SetUp() override;
 
     std::vector<std::vector<char>> givenMaze;
+
+    // TODO mock routeFinder and routeMarker to test corner cases!
+    RouteMarker routeMarker;
 };
 
 void MazeTest::SetUp() {
      givenMaze = { { 'S', '0' }, { '1', 'E' } };
-
 }
 
 TEST_F(MazeTest, ConstructorCopiesGivenMaze) {
     RouteFinder routeFinder(givenMaze);
-    Maze target = Maze(givenMaze, routeFinder);
+    Maze target = Maze(givenMaze, routeFinder, routeMarker);
 
     auto actual = target.GetOriginalMaze();
 
@@ -34,7 +36,7 @@ TEST_F(MazeTest, ConstructorCopiesGivenMaze) {
 TEST_F(MazeTest, SolveMazeReturnsMazeWithFoundRoute) {
     std::vector<std::vector<char>> expected { { 'x', 'x' }, { '1', 'x' } };
     RouteFinder routeFinder(givenMaze);
-    Maze target = Maze(givenMaze, routeFinder);
+    Maze target = Maze(givenMaze, routeFinder, routeMarker);
 
     auto actual = target.SolveMaze();
 
@@ -45,7 +47,7 @@ TEST_F(MazeTest, SolveMazeReturnsMazeWithAllVisitedMarkedWhenNoRouteFound) {
     std::vector<std::vector<char>> expected = { { 'x', '1' }, { '1', 'E' } };
     givenMaze = { { 'S', '1' }, { '1', 'E' } };
     RouteFinder routeFinder(givenMaze);
-    Maze target = Maze(givenMaze, routeFinder);
+    Maze target = Maze(givenMaze, routeFinder, routeMarker);
 
     auto actual = target.SolveMaze();
 

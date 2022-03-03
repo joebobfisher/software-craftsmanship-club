@@ -21,8 +21,10 @@ auto main() -> int {
     printMaze(myMaze);
     std::cout << std::endl << std::endl;
 
+    // TODO create a Maze constructor override that creates its own RouteFinder and RouteMarker so main() doesn't have to!
     RouteFinder routeFinder(myMaze);
-    Maze maze(myMaze, routeFinder);
+    RouteMarker routeMarker;
+    Maze maze(myMaze, routeFinder, routeMarker);
     std::vector<std::vector<char>> solvedMaze = maze.SolveMaze();
 
     printMaze(solvedMaze);

@@ -3,23 +3,19 @@
 
 
 #include "RouteFinder.h"
+#include "RouteMarker.h"
 
 class Maze {
 public:
-    explicit Maze(std::vector<std::vector<char>> maze, RouteFinder routeFinder);
+    explicit Maze(std::vector<std::vector<char>> maze, RouteFinder routeFinder, RouteMarker routeMarker);
     auto SolveMaze() -> std::vector<std::vector<char>>;
     auto GetOriginalMaze() -> std::vector<std::vector<char>>;
 
 private:
     std::vector<std::vector<char>> GivenMaze;
     std::vector<std::vector<char>> MarkedMaze;
-    std::vector<std::vector<bool>> VisitedNodes;
-    std::vector<std::pair<int, int>> RouteStack;
     RouteFinder _routeFinder;
-
-    void MarkRoute();
-    void MarkRouteFound();
-    void MarkRouteNotFound();
+    RouteMarker _routeMarker;
 };
 
 
