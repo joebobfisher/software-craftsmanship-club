@@ -3,9 +3,10 @@ project(tiny-maze)
 
 set(CMAKE_CXX_STANDARD 11)
 
-include_directories(MazeSolver RouteFinder RouteMarker)
+include_directories(Maze MazeSolver RouteFinder RouteMarker)
 
 set(CLASS_FILES
+        Maze/Maze.cpp
         MazeSolver/MazeSolver.cpp
         MazeSolver/MazeSolver.h
         RouteFinder/RouteFinder.cpp

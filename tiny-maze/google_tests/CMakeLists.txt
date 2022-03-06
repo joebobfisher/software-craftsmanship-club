@@ -8,6 +8,7 @@ include_directories(
         ${gmock_SOURCE_DIR}/include)
 
 set(TEST_FILES
+        MazeTests.cpp
         MazeSolverTests.cpp
         RouteFinderTests.cpp
         RouteMarkerTests.cpp)
