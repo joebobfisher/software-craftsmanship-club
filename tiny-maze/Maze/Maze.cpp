@@ -72,3 +72,7 @@ void Maze::RemoveLastNodeFromRoute() {  // NOLINT(readability-identifier-length)
 auto Maze::IsTheEnd(int x, int y) -> bool {     // NOLINT(readability-identifier-length)
     return IsVisitableNode(x, y) && MazeVector[x][y] == 'E';
 }
+
+void Maze::SetMaze(std::vector<std::vector<char>> newMaze) {
+    MazeVector = std::move(newMaze);
+}

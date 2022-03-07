@@ -19,9 +19,8 @@ public:
     void RemoveLastNodeFromRoute();
     auto GetVisitedList() -> std::vector<std::vector<bool>>;
     auto GetRouteStack() -> std::vector<std::pair<int, int>>;
-
-
-    bool IsTheEnd(int x, int y);
+    auto IsTheEnd(int x, int y) -> bool;                        // NOLINT(readability-identifier-length)
+    void SetMaze(std::vector<std::vector<char>> newMaze);
 
 private:
     std::vector<std::vector<char>> MazeVector;

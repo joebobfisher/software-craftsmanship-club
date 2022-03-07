@@ -152,4 +152,31 @@ TEST_F(MazeTest, RemoveNodeFromRoutePopsNodeOffOfRouteStack) {
     EXPECT_THAT(actual, testing::ElementsAreArray(expected));
 }
 
+TEST_F(MazeTest, IsTheEndReturnsTrueWhenNodeIsE) {
+    auto actual = target.IsTheEnd(1, 1);
+
+    EXPECT_EQ(actual, true);
+}
+
+TEST_F(MazeTest, IsTheEndReturnsFalseWhenNodeIsNotE) {
+    auto actual = target.IsTheEnd(0, 1);
+
+    EXPECT_EQ(actual, false);
+}
+
+TEST_F(MazeTest, IsTheEndReturnsFalseWhenNodeIsNotVisitable) {
+    auto actual = target.IsTheEnd(2, 1);
+
+    EXPECT_EQ(actual, false);
+}
+
+TEST_F(MazeTest, SetMazeSetsMazeVectorToGivenMaze) {
+    std::vector<std::vector<char>> newMaze = { { 'S', '0', '0' }, { '1', '1', '1' }, { '0', '0', 'E' } };
+
+    target.SetMaze(newMaze);
+    auto actual = target.GetMaze();
+
+    EXPECT_THAT(actual, testing::ElementsAreArray(newMaze));
+}
+
 #pragma clang diagnostic pop
