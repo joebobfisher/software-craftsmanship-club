@@ -3,8 +3,10 @@ project(bowling)
 
 set(CMAKE_CXX_STANDARD 11)
 
-include_directories()
+include_directories(BowlScorer)
 
-set(CLASS_FILES)
+set(CLASS_FILES
+        BowlScorer/BowlScorer.cpp
+        BowlScorer/BowlScorer.h)
 
 add_executable(bowling main.cpp ${CLASS_FILES})
