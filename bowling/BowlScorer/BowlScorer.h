@@ -3,10 +3,15 @@
 
 
 #include <string>
+#include <vector>
 
 class BowlScorer {
 public:
     auto Score(std::string frameString) -> int;
+    auto GetValueOfBowl(int indexOfBowl) -> int;
+
+private:
+    std::vector<char> bowls;
 };
 
 
