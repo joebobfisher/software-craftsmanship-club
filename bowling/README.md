@@ -38,7 +38,7 @@ We can briefly summarize the scoring for this form of bowling:
 * If he gets a spare or strike in the last (tenth) frame, the bowler gets to throw one or two more bonus balls, respectively. These bonus throws are taken as part of the same turn. If the bonus throws knock down all the pins, the process does not repeat: the bonus throws are only used to calculate the score of the final frame.
 * The game score is the total of all frame scores. 
 
-More info on the rules at: [How to Score for Bowling](http://www.topendsports.com/sport/tenpin/scoring.htm)
+More info on the rules at: [How to ScoreGame for Bowling](http://www.topendsports.com/sport/tenpin/scoring.htm)
 
 ### Clues
 What makes this game interesting to score is the lookahead in the scoring for strike and spare. At the time we throw a strike or spare, we cannot calculate the frame score: we have to wait one or two frames to find out what the bonus is.

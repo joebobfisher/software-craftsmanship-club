@@ -1,5 +1,6 @@
 #include "BowlScorer.h"
-#include <regex>
+
+#include <utility>
 
 const int StartFrame = 1;
 const int LastFrame = 10;
@@ -7,60 +8,67 @@ const int ValueOfAllPins = 10;
 const int ValueOfScratch = 0;
 const int Base10 = 10;
 
-auto BowlScorer::Score(std::string frameString) -> int {
-    int score = 0;
-
-    // split string by whitespace
-    // TODO separate this out into a class you can use again
-    // (this is going to come up again, and it's easier than using Boost)
-    std::regex regex("\\s+");
-    std::sregex_token_iterator iterator(frameString.begin(), frameString.end(), regex, -1);
-    std::vector<std::string> frames{iterator, {}};
-
-    // turn frames vector into vector of bowls (no spaces -- we don't need the frame info)
-    bowls = {};
-    for (const auto& frame : frames) {
-        for (auto bowl : frame) {
-            bowls.push_back(bowl);
-        }
-    }
-
-    // score the game
-    int frame = StartFrame;
-    for (int i = 0; i < bowls.size(); i++) {
-        auto bowl = bowls[i];
-
-        // add the simple value to the score
-        score += GetValueOfBowl(i);
-
-        // add additional values to the score if necessary and adjust the frame
-        if (frame != LastFrame) {
-            if (bowl == 'X') {
-                score += GetValueOfBowl(i + 1) + GetValueOfBowl(i + 2);
-                frame++;
-            } else if (bowl == '/') {
-                score += GetValueOfBowl(i + 1);
-                frame++;
-            } else if (i % 2 != 0) {
-                frame++;
-            }
-        }
-    }
-
-    return score;
+auto BowlScorer::ScoreGame(std::string frameString) -> int {
+    Frames = std::move(frameString);
+    CalculateScore();
+    return Score;
 }
 
-auto BowlScorer::GetValueOfBowl(int indexOfBowl) -> int {     // NOLINT(misc-no-recursion)
-    auto bowl = bowls[indexOfBowl];
+void BowlScorer::CalculateScore() {
+    Score = 0;
+    FrameNumber = StartFrame;
+    for (CurrentIndex = 0; CurrentIndex < Frames.size(); CurrentIndex++) {
+        AddBowlToScore();
+        AddExtraStrikeOrSpareValuesToScore();
+        AdjustFrameNumber();
+    }
+}
 
+void BowlScorer::AddBowlToScore() {
+    Score += GetValueOfBowl(CurrentIndex);
+}
+
+auto BowlScorer::GetValueOfBowl(int index) -> int {     // NOLINT(misc-no-recursion)
+    auto bowl = Frames[index];
     switch (bowl) {
         case 'X':
             return ValueOfAllPins;
         case '/':
-            return ValueOfAllPins - GetValueOfBowl(indexOfBowl - 1);
+            return ValueOfAllPins - GetValueOfBowl(index - 1);
         case '-':
             return ValueOfScratch;
+        case ' ':
+            return 0;
         default:
             return static_cast<int>(strtol(&bowl, nullptr, Base10));
+    }
+}
+
+void BowlScorer::AddExtraStrikeOrSpareValuesToScore() {
+    auto bowl = Frames[CurrentIndex];
+    if (FrameNumber != LastFrame) {
+        if (bowl == 'X') {
+            AddSubsequentBowlsToScore(2);
+        } else if (bowl == '/') {
+            AddSubsequentBowlsToScore(1);
+        }
+    }
+}
+
+void BowlScorer::AddSubsequentBowlsToScore(int bowlsToAdd) {
+    int index = 1;
+    while (bowlsToAdd > 0) {
+        auto nextIndexToTry = CurrentIndex + index;
+        if (Frames[nextIndexToTry] != ' ') {
+            Score += GetValueOfBowl(nextIndexToTry);
+            bowlsToAdd--;
+        }
+        index++;
+    }
+}
+
+void BowlScorer::AdjustFrameNumber() {
+    if (Frames[CurrentIndex] == ' ') {
+        FrameNumber++;
     }
 }
