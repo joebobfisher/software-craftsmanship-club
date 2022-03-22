@@ -8,3 +8,4 @@ Going through the book _Clean Code_ by Robert C. Martin, and doing programming k
 4. Comments -- [arithmetic](arithmetic)
 5. Formatting -- [tiny-maze](tiny-maze)
 6. Objects & Data Structures -- [bowling](bowling)
+7. Error Handling -- [password](password)
