@@ -1,0 +1,8 @@
+#ifndef PASSWORD_PASSWORDEXCEPTIONS_H
+#define PASSWORD_PASSWORDEXCEPTIONS_H
+
+
+#include "PasswordTooShortException.h"
+
+
+#endif //PASSWORD_PASSWORDEXCEPTIONS_H
