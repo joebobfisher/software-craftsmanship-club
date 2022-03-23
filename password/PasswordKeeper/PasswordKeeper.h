@@ -2,13 +2,17 @@
 #define PASSWORD_PASSWORDKEEPER_H
 
 
-#include "Password.h"
+#include <map>
+#include "PasswordObject.h"
 #include "PasswordExceptions.h"
 
 class PasswordKeeper {
 public:
-    void SetPassword(Password password);
-    bool UserExists(std::string userName);
+    void SetPassword(const PasswordObject& password);
+    auto UserExists(const std::string& userName) -> bool;
+    const int MinPasswordLength = 8;
+private:
+    std::map<std::string, std::string> Passwords;
 };
 
 

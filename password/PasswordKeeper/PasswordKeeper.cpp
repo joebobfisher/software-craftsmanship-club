@@ -1,9 +1,13 @@
 #include "PasswordKeeper.h"
 
-void PasswordKeeper::SetPassword(Password password) {
-    throw PasswordTooShortException("Password should be at least 8 characters.");
+void PasswordKeeper::SetPassword(const PasswordObject& password) {
+    if (password.Password.length() < MinPasswordLength) {
+        throw PasswordTooShortException("Password should be at least 8 characters.");
+    }
+
+    Passwords.insert({password.Username, password.Password});
 }
 
-bool PasswordKeeper::UserExists(std::string userName) {
-    return false;
+auto PasswordKeeper::UserExists(const std::string& userName) -> bool {
+    return Passwords.count(userName) > 0;
 }
