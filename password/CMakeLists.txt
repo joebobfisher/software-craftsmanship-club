@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(PasswordObject)
+project(password)
 
 set(CMAKE_CXX_STANDARD 11)
 
@@ -12,9 +12,6 @@ set(CLASS_FILES
         PasswordKeeper/PasswordKeeper.cpp
         PasswordKeeper/PasswordKeeper.h
         PasswordObject/PasswordObject.h
-        Exceptions/PasswordExceptions.h
-        Exceptions/PasswordException.h
-        Exceptions/PasswordTooShortException.h
-        Exceptions/PasswordTooLongException.h)
+        Exceptions/PasswordExceptions.h)
 
-add_executable(PasswordObject main.cpp ${CLASS_FILES})
+add_executable(password main.cpp ${CLASS_FILES})

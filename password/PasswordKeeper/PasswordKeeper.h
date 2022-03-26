@@ -12,6 +12,8 @@ public:
     auto UserExists(const std::string& userName) -> bool;
     const int MinPasswordLength = 8;
     const int MaxPasswordLength = 255;
+    const int MinUsernameLength = 3;
+    const int MaxUsernameLength = 31;
 private:
     std::map<std::string, std::string> Passwords;
 };
