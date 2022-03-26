@@ -3,6 +3,7 @@
 
 
 #include "PasswordTooShortException.h"
+#include "PasswordTooLongException.h"
 
 
 #endif //PASSWORD_PASSWORDEXCEPTIONS_H

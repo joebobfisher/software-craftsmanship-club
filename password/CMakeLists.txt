@@ -14,6 +14,7 @@ set(CLASS_FILES
         PasswordObject/PasswordObject.h
         Exceptions/PasswordExceptions.h
         Exceptions/PasswordException.h
-        Exceptions/PasswordTooShortException.h)
+        Exceptions/PasswordTooShortException.h
+        Exceptions/PasswordTooLongException.h)
 
 add_executable(PasswordObject main.cpp ${CLASS_FILES})
