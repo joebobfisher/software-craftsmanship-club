@@ -31,17 +31,17 @@ Password Encryption
 This kata is a continuation of [the Password kata we did in the last chapter](https://github.com/joebobfisher/software-craftsmanship-club/tree/main/password).
 
 Extend the code from the last kata (or develop from scratch if you're so inclined) to encrypt the username & password
-when they're at rest. Additionally, create a method that will take a cleartext username & password combination, and
-check them against the usernames & passwords already entered.
+when they're at rest. Additionally, create a method that will take a [plaintext](https://www.merriam-webster.com/dictionary/plaintext)
+username & password combination, and check them against the usernames & passwords already entered.
 
 This kata is written to use a 3rd-party encryption library to do the encryption & decryption. With that said, if it
 becomes too big of an issue to incorporate (or even find) this library, the reader is free to implement their own, even
-if it doesn't do actual encryption. The overall goal is to get used to thinking about boundaries, and incorporate the
-principles from the book -- not to get stuck on 3rd-party library details! 
+if it doesn't do actual encryption. The overall goal here is to get used to thinking about boundaries, and incorporate
+the principles from the book -- not to get stuck on 3rd-party library details! 
 
 ### APIs
-Your solution should have the following APIs; roughly speaking of course -- these are defined as C++ functions but your
-implementation should vary based on your language of choice.
+Your solution should have the following APIs. These are defined as C++ functions here but your implementation should
+vary based on your language of choice (and the name you like).
 
 Also feel free to tweak the parameters or return values to suit your code (e.g., passing in a monadic `PasswordObject`
 instead of dyadic `username` and `password` strings!).
@@ -52,7 +52,7 @@ void SetPassword(string username, string password)
 ```
 
 This API should allow the user set the given user's password to the given password string. These strings will both be
-given in [plaintext](https://www.merriam-webster.com/dictionary/plaintext), but after the call returns the username and
+given in plaintext, but after the call returns the username and
 password should both be encrypted in memory.
 
 Note we don't need a return value here -- feel free to throw an exception if something goes wrong (so if we return we
