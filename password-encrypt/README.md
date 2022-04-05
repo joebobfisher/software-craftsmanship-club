@@ -70,6 +70,17 @@ This API should take another plaintext username + password combination, and sear
 alternatively, just encrypt these attempts in the same way and do a straight string compare, I guess 😄 -- whatever you
 would like to do!)
 
+### Ideas for cryptographic libraries to investigate
+There are way more out there, but here are a couple of ideas to get started.
+
+#### Python
+* [Fernet library](https://cryptography.io/en/latest/fernet/)
+
+### C++
+* [Botan](https://github.com/randombit/botan)
+* [Crypto++](https://www.cryptopp.com/)
+* [libgcrypt](https://gnupg.org/related_software/libgcrypt/)
+
 ### Bonus Points If
 * You write the username and password pairs to a file, encrypted.
 * You read the encrypted username+password file at startup, to give the usernames & passwords persistence across runs. 
