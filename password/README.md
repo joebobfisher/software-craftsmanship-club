@@ -4,7 +4,14 @@ Kata: [This page!](README.md)
 
 _Clean Code_ Chapter 7: Error Handling
 --------------------------------------
-_(Notes go here.)_
+* Use exceptions rather than return codes
+* Write your try-catch-finally statement first
+* Use unchecked exceptions
+* Provide context with exceptions
+* Define exception classes in terms of a caller's needs
+* Define the normal flow
+* Don't return null
+* Don't pass null
 
 ### Don't forget what you've already learned!
 * [_Clean Code_ Chapter 6: "Objects & Data Structures"](../bowling/README.md)
