@@ -1,112 +1,139 @@
 #include "PasswordKeeper.h"
+#include "PasswordRuleChecker.h"
+#include "UsernameRuleChecker.h"
 #include <regex>
 
 void PasswordKeeper::SetPassword(const PasswordObject& password) {
-    if (password.Password.length() < MinPasswordLength) {
-        throw PasswordTooShortException("Password should be at least " +
-                                        std::to_string(MinPasswordLength) + " characters.");
-    }
+    CheckPasswordTooLong(password);
+    CheckPasswordLowercase(password);
+    CheckPasswordUppercase(password);
+    CheckPasswordDigits(password);
+    CheckPasswordSpecialChars(password);
+    CheckPasswordBadChars(password);
+    CheckPasswordUsername(password);
+    CheckUsernameTooShort(password);
+    CheckUsernameTooLong(password);
+    CheckUsernameBadChars(password);
+    CheckUsernameDigitStart(password);
 
-    if (password.Password.length() > MaxPasswordLength) {
-        throw PasswordTooLongException("Password can't be more than " +
-                                       std::to_string(MaxPasswordLength) + " characters.");
-    }
+    auto passwordChecker = PasswordRuleChecker();
+    auto usernameChecker = UsernameRuleChecker();
 
-    // password no lowercase
-    bool foundLower = false;
-    for (auto c : password.Password) {
-        if (std::islower(c) != 0) {
-            foundLower = true;
-        }
-    }
-    if (!foundLower) {
-        throw PasswordNoLowercaseException("Password doesn't have any lowercase letters.");
-    }
+    passwordChecker.CheckPassword(password);
 
-    // password no uppercase
-    bool foundUpper = false;
-    for (auto c : password.Password) {
-        if (std::isupper(c) != 0) {
-            foundUpper = true;
-        }
-    }
-    if (!foundUpper) {
-        throw PasswordNoUppercaseException("Password doesn't have any uppercase letters.");
-    }
+    Passwords.insert({password.Username, password.Password});
+}
 
-    // password no digit
-    bool foundDigit = false;
-    for (auto c : password.Password) {
-        if (std::isdigit(c) != 0) {
-            foundDigit = true;
-        }
+void PasswordKeeper::CheckUsernameDigitStart(const PasswordObject &password) const {
+    if (isdigit(password.Username[0]) != 0) {
+        throw UsernameStartsWithADigitException("Username starts with a digit.");
     }
-    if (!foundDigit) {
-        throw PasswordNoDigitException("Password doesn't have any digits.");
-    }
+}
 
-    // password no special char
-    bool foundSpecial = false;
-    for (auto c : password.Password) {
-        if (c == '!' || c == '@' || c == '#' || c == '$' ||
-            c == '%' || c == '^' || c == '&' || c == '*' ||
-            c == '(' || c == ')' || c == '-' || c == '_' ||
-            c == '=' || c == '+') {
-            foundSpecial = true;
-        }
-    }
-    if (!foundSpecial) {
-        throw PasswordNoSpecialCharException("Password doesn't have any of the necessary special characters.");
-    }
-
-    // password bad characters
-    for (auto c : password.Password) {
-        if (std::islower(c) == 0 &&
-            std::isupper(c) == 0 &&
-            std::isdigit(c) == 0 &&
-            !(c == '!' || c == '@' || c == '#' || c == '$' ||
-              c == '%' || c == '^' || c == '&' || c == '*' ||
-              c == '(' || c == ')' || c == '-' || c == '_' ||
-              c == '=' || c == '+')) {
-            throw PasswordBadCharactersException("Password has invalid characters.");
-        }
-    }
-
-    // password has username (mixed case)
-    std::regex expr(password.Username, std::regex::icase);
-    if (std::regex_search(password.Password, expr)) {
-        throw PasswordHasUsernameException("Password contains the username.");
-    }
-
-    // username too short
-    if (password.Username.length() < 3) {
-        throw UsernameTooShortException("Username should be at least " +
-                                        std::to_string(MinUsernameLength) + " characters.");
-    }
-
-    // username too long
-    if (password.Username.length() > 31) {
-        throw UsernameTooLongException("Username can't be more than " +
-                                        std::to_string(MinUsernameLength) + " characters.");
-    }
-
-    // username non-alphanumeric
+void PasswordKeeper::CheckUsernameBadChars(const PasswordObject &password) const {
     bool foundNonAlphaNum = false;
     for (auto c : password.Username) {
-        if (std::isalnum(c) == 0) {
+        if (isalnum(c) == 0) {
             foundNonAlphaNum = true;
         }
     }
     if (foundNonAlphaNum) {
         throw UsernameBadCharactersException("Username has non-alphanumeric characters.");
     }
+}
 
-    // username starts with a digit
-    if (isdigit(password.Username[0]) != 0) {
-        throw UsernameStartsWithADigitException("Username starts with a digit.");
+void PasswordKeeper::CheckUsernameTooLong(const PasswordObject &password) const {
+    if (password.Username.length() > MaxUsernameLength) {
+        throw UsernameTooLongException("Username can't be more than " +
+                                       std::to_string(MinUsernameLength) + " characters.");
     }
+}
 
-    Passwords.insert({password.Username, password.Password});
+void PasswordKeeper::CheckUsernameTooShort(const PasswordObject &password) const {
+    if (password.Username.length() < MinUsernameLength) {
+        throw UsernameTooShortException("Username should be at least " +
+                                        std::to_string(MinUsernameLength) + " characters.");
+    }
+}
+
+void PasswordKeeper::CheckPasswordUsername(const PasswordObject &password) const {
+    std::regex expr(password.Username, std::regex::icase);
+    if (std::regex_search(password.Password, expr)) {
+        throw PasswordHasUsernameException("Password contains the username.");
+    }
+}
+
+void PasswordKeeper::CheckPasswordBadChars(const PasswordObject &password) const {
+    for (auto c : password.Password) {
+        if (islower(c) == 0 &&
+            isupper(c) == 0 &&
+            isdigit(c) == 0 &&
+            !IsAllowedSpecialChar(c)) {
+            throw PasswordBadCharactersException("Password has invalid characters.");
+        }
+    }
+}
+
+auto PasswordKeeper::IsAllowedSpecialChar(const char c) -> bool {
+    return (c == '!' || c == '@' || c == '#' || c == '$' ||
+            c == '%' || c == '^' || c == '&' || c == '*' ||
+            c == '(' || c == ')' || c == '-' || c == '_' ||
+            c == '=' || c == '+');
+}
+
+void PasswordKeeper::CheckPasswordSpecialChars(const PasswordObject &password) const {
+    bool foundSpecial = false;
+    for (auto c : password.Password) {
+        if (IsAllowedSpecialChar(c)) {
+            foundSpecial = true;
+        }
+    }
+    if (!foundSpecial) {
+        throw PasswordNoSpecialCharException("Password doesn't have any of the necessary special characters.");
+    }
+}
+
+void PasswordKeeper::CheckPasswordDigits(const PasswordObject &password) const {
+    bool foundDigit = false;
+    for (auto c : password.Password) {
+        if (isdigit(c) != 0) {
+            foundDigit = true;
+        }
+    }
+    if (!foundDigit) {
+        throw PasswordNoDigitException("Password doesn't have any digits.");
+    }
+}
+
+void PasswordKeeper::CheckPasswordUppercase(const PasswordObject &password) const {
+    bool foundUpper = false;
+    for (auto c : password.Password) {
+        if (isupper(c) != 0) {
+            foundUpper = true;
+        }
+    }
+    if (!foundUpper) {
+        throw PasswordNoUppercaseException("Password doesn't have any uppercase letters.");
+    }
+}
+
+void PasswordKeeper::CheckPasswordLowercase(const PasswordObject &password) const {
+    bool foundLower = false;
+    for (auto c : password.Password) {
+        if (islower(c) != 0) {
+            foundLower = true;
+        }
+    }
+    if (!foundLower) {
+        throw PasswordNoLowercaseException("Password doesn't have any lowercase letters.");
+    }
+}
+
+void PasswordKeeper::CheckPasswordTooLong(const PasswordObject &password) const {
+    if (password.Password.length() > MaxPasswordLength) {
+        throw PasswordTooLongException("Password can't be more than " +
+                                       std::to_string(MaxPasswordLength) + " characters.");
+    }
 }
 
 auto PasswordKeeper::UserExists(const std::string& userName) -> bool {
