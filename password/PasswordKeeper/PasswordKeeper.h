@@ -13,13 +13,9 @@ public:
 
 private:
     std::map<std::string, std::string> Passwords;
-    const int MinPasswordLength = 8;
-    const int MaxPasswordLength = 255;
     const int MinUsernameLength = 3;
     const int MaxUsernameLength = 31;
 
-    void CheckPasswordTooShort(const PasswordObject &password) const;
-    void CheckPasswordTooLong(const PasswordObject &password) const;
     void CheckPasswordLowercase(const PasswordObject &password) const;
     void CheckPasswordUppercase(const PasswordObject &password) const;
     void CheckPasswordDigits(const PasswordObject &password) const;

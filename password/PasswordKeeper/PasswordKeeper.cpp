@@ -4,7 +4,6 @@
 #include <regex>
 
 void PasswordKeeper::SetPassword(const PasswordObject& password) {
-    CheckPasswordTooLong(password);
     CheckPasswordLowercase(password);
     CheckPasswordUppercase(password);
     CheckPasswordDigits(password);
@@ -126,13 +125,6 @@ void PasswordKeeper::CheckPasswordLowercase(const PasswordObject &password) cons
     }
     if (!foundLower) {
         throw PasswordNoLowercaseException("Password doesn't have any lowercase letters.");
-    }
-}
-
-void PasswordKeeper::CheckPasswordTooLong(const PasswordObject &password) const {
-    if (password.Password.length() > MaxPasswordLength) {
-        throw PasswordTooLongException("Password can't be more than " +
-                                       std::to_string(MaxPasswordLength) + " characters.");
     }
 }
 

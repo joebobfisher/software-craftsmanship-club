@@ -1,7 +1,8 @@
 #include "PasswordRuleChecker.h"
 
 PasswordRuleChecker::PasswordRuleChecker() {
-    Rules = {new PasswordMinLengthRule()};
+    Rules = {new PasswordMinLengthRule(),
+             new PasswordMaxLengthRule()};
 }
 
 void PasswordRuleChecker::CheckPassword(const PasswordObject& password) {
