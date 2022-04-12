@@ -5,7 +5,6 @@
 #include "PasswordObject.h"
 
 class Rule {
-
 public:
     virtual void Check(const PasswordObject& password) = 0;
     virtual ~Rule() = default;

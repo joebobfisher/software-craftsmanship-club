@@ -12,7 +12,7 @@ public:
     void CheckPassword(const PasswordObject& password);
 
 private:
-    std::vector<PasswordMinLengthRule> Rules;
+    std::vector<Rule*> Rules{};
 };
 
 

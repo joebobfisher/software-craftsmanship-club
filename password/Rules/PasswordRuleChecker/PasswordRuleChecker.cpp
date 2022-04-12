@@ -1,11 +1,11 @@
 #include "PasswordRuleChecker.h"
 
 PasswordRuleChecker::PasswordRuleChecker() {
-    Rules.emplace_back(PasswordMinLengthRule());
+    Rules = {new PasswordMinLengthRule()};
 }
 
 void PasswordRuleChecker::CheckPassword(const PasswordObject& password) {
     for (auto & rule : Rules) {
-        rule.Check(password);
+        rule->Check(password);
     }
 }
