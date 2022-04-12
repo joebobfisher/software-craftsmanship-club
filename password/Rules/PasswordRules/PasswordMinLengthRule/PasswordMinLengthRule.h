@@ -3,11 +3,16 @@
 
 
 #include "Rule.h"
+#include "PasswordExceptions.h"
 
 class PasswordMinLengthRule : public Rule {
 public:
-    PasswordMinLengthRule() = default;
-    void Check(const PasswordObject& password) override;
+    void Check(const PasswordObject& password) override {
+        if (password.Password.length() < MinPasswordLength) {
+            throw PasswordTooShortException("Password must be at least " +
+                                            std::to_string(MinPasswordLength) + " characters.");
+        }
+    };
 private:
     const int MinPasswordLength = 8;
 };

@@ -13,21 +13,6 @@ public:
 
 private:
     std::map<std::string, std::string> Passwords;
-    const int MinUsernameLength = 3;
-    const int MaxUsernameLength = 31;
-
-    void CheckPasswordLowercase(const PasswordObject &password) const;
-    void CheckPasswordUppercase(const PasswordObject &password) const;
-    void CheckPasswordDigits(const PasswordObject &password) const;
-    void CheckPasswordSpecialChars(const PasswordObject &password) const;
-    void CheckPasswordBadChars(const PasswordObject &password) const;
-    void CheckPasswordUsername(const PasswordObject &password) const;
-    void CheckUsernameTooShort(const PasswordObject &password) const;
-    void CheckUsernameTooLong(const PasswordObject &password) const;
-    void CheckUsernameBadChars(const PasswordObject &password) const;
-    void CheckUsernameDigitStart(const PasswordObject &password) const;
-
-    static auto IsAllowedSpecialChar(char c) -> bool;                              // NOLINT(readability-identifier-length)
 };
 
 

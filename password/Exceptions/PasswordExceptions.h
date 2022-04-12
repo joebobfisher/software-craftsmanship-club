@@ -13,7 +13,7 @@ public:
     }
 
 protected:
-    std::string ExceptionString;
+    std::string ExceptionString;    // NOLINT(cppcoreguidelines-non-private-member-variables-in-classes)
 };
 
 class PasswordTooShortException : public PasswordException {

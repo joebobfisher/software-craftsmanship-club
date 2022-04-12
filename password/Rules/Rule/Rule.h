@@ -7,7 +7,7 @@
 class Rule {
 public:
     virtual void Check(const PasswordObject& password) = 0;
-    virtual ~Rule() = default;
+    virtual ~Rule() = default;      // Important here since we're `new`ing stuff in the rule checker
 };
 
 
