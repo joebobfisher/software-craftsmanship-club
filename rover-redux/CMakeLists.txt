@@ -3,8 +3,12 @@ project(rover-redux)
 
 set(CMAKE_CXX_STANDARD 11)
 
-include_directories()
+include_directories(Rover)
 
-set(CLASS_FILES)
+set(CLASS_FILES
+        Rover/Rover.cpp)
 
 add_executable(rover-redux main.cpp ${CLASS_FILES})
+add_library(rover-redux-lib ${CLASS_FILES})
+
+add_subdirectory(google_tests)
