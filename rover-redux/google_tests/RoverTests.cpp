@@ -14,7 +14,9 @@ void RoverTest::SetUp()
 
 }
 
-TEST_F(RoverTest, Dummy) // NOLINT(cert-err58-cpp)
+TEST_F(RoverTest, ExecuteGivenEmptyStringReturnsStartingPosition) // NOLINT(cert-err58-cpp)
 {
-    SUCCEED();
+    std::string expected = "0:0:N";
+    std::string actual = target.Execute("");
+    EXPECT_EQ(expected, actual);
 }

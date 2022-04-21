@@ -2,8 +2,11 @@
 #define ROVER_REDUX_ROVER_H
 
 
-class Rover {
+#include <string>
 
+class Rover {
+public:
+    auto Execute(std::string commands) -> std::string;
 };
 
 
