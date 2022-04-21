@@ -10,7 +10,7 @@
 
 FROM ubuntu:latest
 
-LABEL Name=scc Version=0.0.1 description="Software Craftsmanship Club container"
+LABEL Name=scc Version=0.0.2 description="Software Craftsmanship Club container"
 
 RUN DEBIAN_FRONTEND="noninteractive" apt-get update && apt-get -y install tzdata
 
@@ -31,7 +31,13 @@ RUN apt-get update \
       rsync \
       tar \
       python
+
+# Boost C++ library in case we need it!
 RUN apt-get install -y libboost-all-dev
+
+# Botan security library (https://botan.randombit.net/handbook/api_ref/contents.html)
+RUN apt-get install -y botan libbotan-2-dev
+
 RUN apt-get clean
 
 RUN ( \
