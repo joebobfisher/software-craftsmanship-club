@@ -1,9 +1,11 @@
 #include "Rover.h"
 
 auto Rover::Execute(std::string commands) -> std::string {
-    if (commands == "M") {
-        _position = "0:1:N";
+    for (auto command : commands) {
+        if (command == 'M') {
+            _position.y++;
+        }
     }
 
-    return _position;
+    return std::to_string(_position.x) + ":" + std::to_string(_position.y) + ":" + "N";
 }

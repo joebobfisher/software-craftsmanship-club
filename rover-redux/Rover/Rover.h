@@ -3,13 +3,14 @@
 
 
 #include <string>
+#include "RoverPosition.h"
 
 class Rover {
 public:
     auto Execute(std::string commands) -> std::string;
 
 private:
-    std::string _position = "0:0:N";
+    RoverPosition _position;
 };
 
 
