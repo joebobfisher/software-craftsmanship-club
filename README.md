@@ -10,3 +10,4 @@ Going through the book _Clean Code_ by Robert C. Martin, and doing programming k
 6. Objects & Data Structures -- [bowling](bowling)
 7. Error Handling -- [password](password)
 8. Boundaries -- [password-encrypt](password-encrypt)
+9. Unit Tests -- [rover-redux](rover-redux)
