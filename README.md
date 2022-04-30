@@ -11,3 +11,11 @@ Going through the book _Clean Code_ by Robert C. Martin, and doing programming k
 7. Error Handling -- [password](password)
 8. Boundaries -- [password-encrypt](password-encrypt)
 9. Unit Tests -- [rover-redux](rover-redux)
+10. Classes
+11. Systems
+12. Emergence
+13. Concurrency
+14. Successive Refinement
+15. JUnit Internals
+16. Refactoring `SerialDate`
+17. Smells & Heuristics
