@@ -8,7 +8,6 @@ protected:
     auto GenerateRandomCommands(int maxNumberOfCommands, std::string allowedCommands) -> std::string;
 
     MyRandom random;
-
     Rover target;
 };
 
@@ -50,4 +49,14 @@ TEST_F(RoverTest, ExecuteGivenMultipleMsMovesNorthMTimes) {
     std::string actual = target.Execute(commandString);
 
     EXPECT_EQ(expected, actual);
+}
+
+TEST_F(RoverTest, ExecuteGivenInvalidStringDoesNotMove) {
+    const int maxRandomStringSize = 100;
+    int randomStringSize = random.GetRandomInt(0, maxRandomStringSize);
+    std::string randomCommandString = random.GetRandomString(randomStringSize);
+
+    std::string actual = target.Execute(randomCommandString);
+
+    EXPECT_EQ("0:0:N", actual);
 }
