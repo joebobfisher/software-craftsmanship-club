@@ -27,16 +27,16 @@ Counting k-Primes
 A natural number is called k-prime if it has exactly k prime factors, counted with multiplicity. For example:
 
 ```
-k = 2  -->  4, 6, 9, 10, 14, 15, 21, 22, ...
-k = 3  -->  8, 12, 18, 20, 27, 28, 30, ...
-k = 5  -->  32, 48, 72, 80, 108, 112, ...
+k = 2  -->  4, 6, 9, 10, 14, 15, 21, 22, ... (i.e., 2*2, 2*3, 3*3, 2*5, 2*7, 3*5, 3*7, 2*11, ...)
+k = 3  -->  8, 12, 18, 20, 27, 28, 30, ... (i.e., 2*2*2, 2*2*3, 2*3*3, 2*2*5, 3*3*3, 2*2*7, 2*3*5, ...)
+k = 5  -->  32, 48, 72, 80, 108, 112, ... (i.e., 2*2*2*2*2, 2*2*2*2*3, 2*2*2*3*3, ...)
 ```
 
 A natural number is thus prime if and only if it is 1-prime.
 
 ### Task
 Complete the function, which is given parameters `k`, `start`, `end` (or `nd`) and returns an **array** (or a list or a
-string depending on the language - see "Solution" and "Sample Tests") of the k-primes between `start` (inclusive) and
+string depending on the language) of the k-primes between `start` (inclusive) and
 `end` (inclusive).
 
 ### Example
@@ -46,7 +46,7 @@ countKprimes(5, 500, 600) --> [500, 520, 552, 567, 588, 592, 594]
 
 ### Notes
 * The first function would have been better named: findKprimes or kPrimes :-)
-* In C some helper functions are given (see declarations in 'Solution').
+* In C some helper functions are given.
 * For Go: nil slice is expected when there are no k-primes between start and end.
 
 Extra Credit: puzzle
