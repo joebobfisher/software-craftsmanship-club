@@ -1,6 +1,6 @@
 DISTek Software Craftsmanship Club 13 - Count k-Primes Concurrently
 ===================================================================
-Coding Kata: [k-Primes](https://codwars.com/kata/5726f813c8dcebf5ed000a6b)
+Coding Kata: [k-Primes](https://codewars.com/kata/5726f813c8dcebf5ed000a6b)
 
 _Clean Code_ Chapter 13: Concurrency
 ------------------------------------
