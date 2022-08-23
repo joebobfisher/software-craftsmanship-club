@@ -30,7 +30,7 @@ RUN apt-get update \
       dos2unix \
       rsync \
       tar \
-      python
+      python-is-python3
 RUN apt-get install -y libboost-all-dev
 RUN apt-get clean
 

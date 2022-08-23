@@ -1,6 +1,6 @@
 DISTek Software Craftsmanship Club 17 - Rover Refactor's Final Form
 ===================================================================
-Coding Kata: [Simple Mars Rover Kata on Katalyst](https://katalyst.codurance.com/simple-mars-rover)
+Coding Kata: [Gilded Rose Kata on GitHub](https://github.com/joebobfisher/GildedRose-Refactoring-Kata)
 
 _Clean Code_ Chapter 17: Smells and Heuristics
 ----------------------------------------------
@@ -93,12 +93,27 @@ _Clean Code_ Chapter 17: Smells and Heuristics
 * [_Clean Code_ Chapter 3: "Functions"](../alphabet-cipher/README.md)
 * [_Clean Code_ Chapter 2: "Meaningful Names"](../rover/README.md)
 
-Rover Refactor: Final Form
---------------------------
-![final-form](final-form.png)
+The Gilded Rose Kata
+--------------------
+Instead of refactoring the rover project one more time, we're going to switch things up a bit. This kata is designed to
+force you to deal with test and design decisions as you refactor somebody else's _admittedly messy_ code. See the kata
+link above for details! However, when you attack this kata, try to place a heavy emphasis on:
 
-Refactor the rover project yet again (Chapter 2, Chapter 9, Chapter 10) to look for the code smells covered in
-Chapter 17.
+1) The smells and heuristics that Robert Martin lays out in Chapter 17, and
+2) what you've already learned in the previous chapters
+
+Make sure you choose the folder containing the code for your language (or if you're feeling really adventurous, try a
+new one!).
+
+### Important Twist
+
+As I hopefully mentioned to you in the message about this kata, I also strongly urge you to start with a partner in true
+pairing style! That is, try working on this kata _synchronously_ with a partner (i.e. at the same time), and trade off
+who write code on the keyboard and who "navigates" or provides direction (talking through the problem with the driver). 
+
+Hop on Gather in a separate room, or use Visual Studio Code's LiveShare feature, etc. If you can make this happen, even
+just to _start_ working through the kata, please do so -- you won't regret the experience, even if it seems a bit
+awkward at first!
 
 The End
 -------
