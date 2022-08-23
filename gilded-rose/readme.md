@@ -105,11 +105,15 @@ link above for details! However, when you attack this kata, try to place a heavy
 Make sure you choose the folder containing the code for your language (or if you're feeling really adventurous, try a
 new one!).
 
+Finally, for this kata, the total progress is not what's important (there is no "done refactoring"), rather it's the
+experience that counts. See the below section for more on the experience we want to have in this last kata, together.
+
 ### Important Twist
 
-As I hopefully mentioned to you in the message about this kata, I also strongly urge you to start with a partner in true
-pairing style! That is, try working on this kata _synchronously_ with a partner (i.e. at the same time), and trade off
-who write code on the keyboard and who "navigates" or provides direction (talking through the problem with the driver). 
+We're going to attack this kata a little differently than the ones we've done in the past sessions. Instead of meeting
+together to review each other's work, I strongly urge you to start with a partner in true pairing style! That is, try
+working on this kata _synchronously_ with a partner (i.e. at the same time), and trade off who write code on the
+keyboard and who "navigates" or provides direction (talking through the problem with the driver). 
 
 Hop on Gather in a separate room, or use Visual Studio Code's LiveShare feature, etc. If you can make this happen, even
 just to _start_ working through the kata, please do so -- you won't regret the experience, even if it seems a bit
