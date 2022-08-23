@@ -16,6 +16,6 @@ Going through the book _Clean Code_ by Robert C. Martin, and doing programming k
 12. Emergence -- [kprimes](kprimes)
 13. Concurrency -- [kprimes-concurrent](kprimes-concurrent)
 14. Successive Refinement -- [arg-parser](arg-parser)
-15. JUnit Internals
+15. ~~JUnit Internals~~ _(Skipping Chapter 15!)_
 16. Refactoring `SerialDate`
 17. Smells & Heuristics -- [gilded-rose](gilded-rose)
